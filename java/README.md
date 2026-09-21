@@ -29,6 +29,61 @@ Native machine instructions
    CPU
 ```
 
+### JVM Internals Overview
+
+After the compilation of a Java program, there is a file with the **`.class`** extension. It contains the Java bytecode. In order to execute the code, it needs to get loaded it into the JVM. When the JVM executes a program, it translates the bytecode into platform-native code.
+
+The JVM mainly performs the following activities:
+
+- Loads bytecode
+- Verifies bytecode
+- Executes bytecode
+- Provides the runtime environment
+
+The following image illustrates a common JVM architecture:
+
+![JVM Architecture](./img/jvm-architecture.svg)
+
+
+#### The Class Loader Subsystem
+
+This subsystem loads the Java bytecode for execution, verifies it and then allocates memory for the bytecode. 
+To verify bytecode, there is a module called the **bytecode verifier**. It checks that the instructions don't require any dangerous actions, such as accessing private fields and methods of classes and objects.
+
+
+#### The Runtime Data Areas
+
+This **subsystem** represents **JVM memory**. The areas are used for different purposes during program execution.
+
+- **PC register** — holds the address of the currently executing instruction.
+- **Stack area** — a memory area where method calls and local variables are stored.
+- **Native method stack** — stores native method information.
+- **Heap** — stores all created objects (instances of classes).
+- **Method area** — stores class-level information such as the class name, immediate parent class name, method information     and static variables.
+
+Every thread has its own **PC register**, **stack** and **native method stack** but all threads share the same **heap** and **method area**.
+
+
+#### Execution Engine
+
+The execution engine is responsible for executing the program (bytecode). It interacts with various data areas of the JVM while executing bytecode.
+
+The execution engine has the following parts:
+
+- **Bytecode interpreter** — interprets the bytecode line by line and executes it (rather slowly).
+- **Just-in-time compiler (JIT compiler)** — translates bytecode into native machine language while executing the program.     It executes the program faster than the interpreter.
+- **Garbage collector** — cleans unused objects from the heap. Different JVM implementations can contain both a **bytecode     interpreter** and a **just-in-time compiler**, or only one of them.
+- 
+
+#### Interfaces and Libraries
+
+Other important parts of the JVM for execution include:
+
+- **Native Method Interface** — provides an interface between Java code and native method libraries.
+- **Native Method Library** — consists of C/C++ files that are required for the execution of native code.
+
+---
+
 ## Code Summary
 
 ### Java Program Structure
