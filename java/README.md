@@ -1,8 +1,10 @@
-## Introduction
+# Introduction
 
 Java is a high-level, class-based, object-oriented programming language. Its syntax was influenced by C and C++. Java abstracts away many low-level programming complexities. For example, Java does not support C++-style multiple inheritance of classes, and memory management is handled automatically through garbage collection.
 
-## How Java Works
+---
+
+# How Java Works
 
 Java source code such as `Main.java` is compiled by the Java compiler (`javac`) into bytecode by producing a `.class` file. The bytecode can run on any platform that has a compatible Java Virtual Machine (JVM). This is the idea behind Java's **"write once, run anywhere"** approach.
 
@@ -12,7 +14,7 @@ The JVM executes the bytecode and can translate/compile it into native machine i
 - *JRE (Java Runtime Environment)* — provides the JVM and libraries needed to run Java applications.
 - *JDK (Java Development Kit)* — provides the tools needed to develop Java applications, including the compiler (`javac`) and the Java runtime components.
 
-### Java Execution Flow
+## Java Execution Flow
 
 ```text
 Main.java
@@ -29,7 +31,7 @@ Native machine instructions
    CPU
 ```
 
-### JVM Internals Overview
+## JVM Internals Overview
 
 After the compilation of a Java program, there is a file with the **`.class`** extension. It contains the Java bytecode. In order to execute the code, it needs to get loaded it into the JVM. When the JVM executes a program, it translates the bytecode into platform-native code.
 
@@ -45,13 +47,13 @@ The following image illustrates a common JVM architecture:
 ![JVM Architecture](./img/jvm-architecture.svg)
 
 
-#### The Class Loader Subsystem
+### The Class Loader Subsystem
 
 This subsystem loads the Java bytecode for execution, verifies it and then allocates memory for the bytecode. 
 To verify bytecode, there is a module called the **bytecode verifier**. It checks that the instructions don't require any dangerous actions, such as accessing private fields and methods of classes and objects.
 
 
-#### The Runtime Data Areas
+### The Runtime Data Areas
 
 This **subsystem** represents **JVM memory**. The areas are used for different purposes during program execution.
 
@@ -64,7 +66,7 @@ This **subsystem** represents **JVM memory**. The areas are used for different p
 Every thread has its own **PC register**, **stack** and **native method stack** but all threads share the same **heap** and **method area**.
 
 
-#### Execution Engine
+### Execution Engine
 
 The execution engine is responsible for executing the program (bytecode). It interacts with various data areas of the JVM while executing bytecode.
 
@@ -75,7 +77,7 @@ The execution engine has the following parts:
 - **Garbage collector** — cleans unused objects from the heap. Different JVM implementations can contain both a **bytecode     interpreter** and a **just-in-time compiler**, or only one of them.
 - 
 
-#### Interfaces and Libraries
+### Interfaces and Libraries
 
 Other important parts of the JVM for execution include:
 
@@ -84,7 +86,9 @@ Other important parts of the JVM for execution include:
 
 ---
 
-## Code Summary
+# Concepts
+
+## Getting Started
 
 ### Java Program Structure
 
@@ -109,7 +113,6 @@ public class Main {
 - `print()` — prints something.
 - `println()` — prints something and moves to the next line.
 
----
 
 ### Statements
 
@@ -122,7 +125,6 @@ System.out.print(age);
 
 The semicolon (`;`) marks the end of a statement in Java.
 
----
 
 ### Variables and Data Types
 
@@ -155,7 +157,6 @@ boolean
 
 **Reference types** refer to objects, such as `String` and arrays.
 
----
 
 ### Output
 
@@ -190,7 +191,6 @@ I'm Learning
 Java!
 ```
 
----
 
 ### `println()` and `\n`
 
@@ -217,7 +217,6 @@ Java!
 
 **Background:** A string is a sequence of characters. In Java, `String` is a class and therefore a reference type.
 
----
 
 ### Variables and `var`
 
@@ -249,7 +248,6 @@ language = 10; // Error
 
 The compiler has inferred `language` as a `String`, so an `int` cannot be assigned to it.
 
----
 
 ### Comparing Values
 
@@ -284,7 +282,6 @@ Here:
 - `s1.equals(s2)` is `true` because their contents are equal.
 - `s2 == s3` is `true` because both references point to the same object.
 
----
 
 ### Escape Characters
 
@@ -312,7 +309,6 @@ Name:   John
 Age:    24
 ```
 
----
 
 ### Comments
 
@@ -334,7 +330,6 @@ A multi-line comment starts with `/*` and ends with `*/`:
 */
 ```
 
----
 
 ### User Input with `Scanner`
 
@@ -400,7 +395,9 @@ scanner.nextLine(); // Mahbubur Rahman
 
 ---
 
-### Arithmetic Operators
+## Arithmetic and primitive type operations
+
+### Arithmetic Operations
 
 Arithmetic operators are used to perform mathematical calculations in Java. Java provides five **binary arithmetic operators**: addition `+`, subtraction `-`, multiplication `*`, division `/`, and remainder `%`.
 
@@ -427,7 +424,6 @@ System.out.println(12 % 4); // 0
 System.out.println(5 % 9);  // 5
 ```
 
----
 
 ### Expressions
 
@@ -445,7 +441,6 @@ Java follows a specific **precedence order** when evaluating expressions. Multip
 System.out.println((1 + 3) * (4 - 2)); // 8
 ```
 
----
 
 ### Unary Operators
 
@@ -466,7 +461,6 @@ System.out.println(-(100 + 4));  // -104
 
 Unary plus and unary minus have a higher precedence than multiplication and division.
 
----
 
 ### Precedence
 
@@ -499,7 +493,6 @@ public class Expressions {
 }
 ```
 
----
 
 ### Integer Types
 
@@ -525,7 +518,6 @@ int number = 100;
 System.out.println(number); // 100
 ```
 
----
 
 ### Long
 
@@ -552,7 +544,6 @@ The value is too large for an `int` but adding `L` makes it a `long`.
 long bigNumber = 5_000_000_000L; // Compiles successfully
 ```
 
----
 
 ### Assignment Operators
 
@@ -580,7 +571,6 @@ Other compound assignment operators include:
 %=
 ```
 
----
 
 ### Increment and Decrement Operators
 
@@ -600,7 +590,6 @@ n += 1; // 11
 n -= 1; // 10
 ```
 
----
 
 ### Prefix and Postfix Forms
 
@@ -652,7 +641,6 @@ int remainder = --a % b++;
 System.out.println(remainder); // Prints 3
 ```
 
----
 
 ### Boolean Type
 
@@ -668,7 +656,6 @@ System.out.println(closed); // false
 
 A `boolean` variable cannot store an integer value. In Java, `0` is not the same as `false`.
 
----
 
 ### Logical Operators
 
@@ -708,7 +695,6 @@ boolean b3 = true ^ false;  // true
 boolean b4 = true ^ true;   // false
 ```
 
----
 
 ### Logical Operator Precedence
 
@@ -729,7 +715,6 @@ Here, `!false` is evaluated first, producing `true` and then `true && true` prod
 
 Parentheses can be used to change the order of execution.
 
----
 
 ### Short-Circuit Evaluation
 
@@ -746,7 +731,6 @@ For `||`, if the first operand is `true`, the entire expression must be `true`, 
 
 Short-circuit evaluation can reduce unnecessary computation and can also help avoid some errors in programs.
 
----
 
 ### Division and Remainder
 
@@ -772,7 +756,6 @@ The last value is the **remainder**. It represents what is left after subtractin
 
 The remainder is always a non-negative integer that is strictly less than the divisor when working with positive numbers.
 
----
 
 ### Modulo Division
 
@@ -824,7 +807,6 @@ For example, a number is **even** if it is divisible by `2`, so we can check it 
 x % 2 == 0
 ```
 
----
 
 ### Using Modulo with Time
 
@@ -846,7 +828,6 @@ Therefore, `16` o'clock corresponds to `4` p.m. in the `12`-hour format.
 
 The general idea is to take the `24`-hour time modulo `12`.
 
----
 
 ### Why Modulo Is Useful
 
@@ -866,9 +847,6 @@ x = n × 25 + 3
 
 where `n` is a natural number. Therefore, many different values of `x` can produce the same remainder.
 
-> **Key takeaway:** The `%` operator gives the remainder after division. A remainder of `0` means that the dividend is divisible by the divisor.
-
----
 
 ### Binary Number System
 
@@ -888,7 +866,6 @@ A binary number works in the same way, but uses powers of `2`. For example, bina
 1 × 2³ + 0 × 2² + 1 × 2¹ + 1 × 2⁰
 ```
 
----
 
 ### Binary Counting
 
@@ -916,7 +893,6 @@ For example, decimal `5` is binary `101` because:
 
 In binary counting, when a digit reaches `1`, the next number resets that digit to `0` and increases the digit to its left.
 
----
 
 ### Zero Padding
 
@@ -933,7 +909,6 @@ Common fixed-length formats include:
 - **Tetrads:** `0110`, `0111`
 - **8-digit numbers:** `00000000`, `01010101`
 
----
 
 ### Binary in Computers
 
@@ -945,7 +920,6 @@ An 8-bit binary number can represent **256 different values**, from `0` to `255`
 
 This way of storing information is called **binary code** and is used to represent many types of data.
 
----
 
 ### Binary Encoding
 
@@ -969,7 +943,6 @@ represents pure red, with no green or blue component.
 
 In general, binary code can be used to represent many different types of information.
 
----
 
 ### Binary Addition
 
@@ -982,7 +955,7 @@ Binary place values are powers of 2:
 ```text
 ... 2³  2²  2¹  2⁰
 ```
----
+
 
 ### Binary Addition Rules
 
@@ -1010,7 +983,6 @@ For example:
 
 The carried `1` is added to the next column.
 
----
 
 ### Carrying in Binary Addition
 
@@ -1060,7 +1032,6 @@ Check in decimal:
 18₁₀ = 10010₂
 ```
 
----
 
 ### Binary Subtraction
 
@@ -1077,7 +1048,6 @@ The basic rules are:
 10 - 1 = 1
 ```
 
----
 
 ### Borrowing in Binary Subtraction
 
@@ -1108,7 +1078,6 @@ For example:
 
 The borrowing process is similar to decimal subtraction, but the borrowed value is `10₂` instead of `10₁₀`.
 
----
 
 ### Borrowing Multiple Times
 
@@ -1140,7 +1109,6 @@ or simply:
 10000₂ - 1₂ = 1111₂
 ```
 
----
 
 ### Checking Binary Calculations
 
@@ -1169,9 +1137,8 @@ Therefore:
 
 The same method can be used to check binary addition.
 
----
 
-### Key Points
+#### Key Points
 
 - Binary addition and subtraction use the same **column method** as decimal arithmetic.
 - Always calculate from **right to left**.
@@ -1181,7 +1148,6 @@ The same method can be used to check binary addition.
 - Leading zeros can be added to make numbers easier to align.
 - Converting the final answer to decimal is a useful way to check the calculation.
 
----
 
 ### Implicit Casting
 
@@ -1198,7 +1164,6 @@ long bigNum = num; // 100
 
 Here, Java automatically converts the `int` value to `long`.
 
----
 
 ### Common Implicit Castings
 
@@ -1236,7 +1201,6 @@ int num = bigNum; // compilation error
 
 The conversion from `long` to `int` requires explicit casting.
 
----
 
 ### Implicit Casting and Information Loss
 
@@ -1251,7 +1215,6 @@ float bigFloat = bigLong; // 1.2E9
 
 The value is within the range of `float` but some less significant bits may be lost.
 
----
 
 ### `char` and Numeric Types
 
@@ -1277,7 +1240,6 @@ So:
 '?' → 63
 ```
 
----
 
 ### Boolean Cannot Be Cast
 
@@ -1291,7 +1253,6 @@ boolean value = true;
 // int num = value; // invalid
 ```
 
----
 
 ### Explicit Casting
 
@@ -1313,7 +1274,6 @@ long l = (long) d; // 2
 
 The cast from `double` to `long` removes the fractional part.
 
----
 
 ### Examples of Explicit Casting
 
@@ -1331,7 +1291,6 @@ char ch = (char) 55L; // '7'
 
 Explicit casting is required when converting from a wider type to a narrower type.
 
----
 
 ### Narrowing Can Lose Information
 
@@ -1346,7 +1305,6 @@ int n = (int) bigNum;
 
 The resulting `int` does not contain the original value.
 
----
 
 ### Type Overflow
 
@@ -1371,7 +1329,6 @@ int  → byte
 
 Before narrowing a value, make sure the value can safely fit inside the target type.
 
----
 
 ### Explicit Casting Can Also Be Used for Widening
 
@@ -1391,9 +1348,8 @@ long bigNum = num;
 
 Therefore, unnecessary explicit casts should generally be avoided.
 
----
 
-### Key Points
+#### Key Points
 
 - **Implicit casting** is automatic conversion performed by Java.
 - It normally happens when converting from a **narrower type to a wider type**.
@@ -1405,6 +1361,1743 @@ Therefore, unnecessary explicit casts should generally be avoided.
 - `char` can be converted to numeric types.
 - `boolean` cannot be cast to or from numeric types.
 - Explicit casting is unnecessary when Java already performs the conversion implicitly.
+
+---
+
+## Control flow and Conditional Logic
+
+### Relational Operators
+
+**Relational operators** are used to compare values. The result of a comparison is always a `boolean`: either `true` or `false`.
+
+Java provides six relational operators:
+
+```text
+==    equal to
+!=    not equal to
+>     greater than
+>=    greater than or equal to
+<     less than
+<=    less than or equal to
+```
+
+For example:
+
+```java
+int one = 1;
+int two = 2;
+int three = 3;
+int four = 4;
+
+boolean oneIsOne = one == one; // true
+
+boolean res1 = two <= three; // true
+boolean res2 = two != four;  // true
+boolean res3 = two > four;   // false
+boolean res4 = one == three; // false
+```
+
+
+### Relational Operators with Arithmetic
+
+Relational operators can be used together with arithmetic operators.
+
+Arithmetic operations are evaluated before the comparison.
+
+```java
+int number = 1000;
+
+boolean result = number + 10 > number + 9;
+```
+
+First, the arithmetic operations are calculated:
+
+```text
+1010 > 1009
+```
+
+So:
+
+```text
+result = true
+```
+
+Relational operators have **lower priority** than arithmetic operators.
+
+
+### Combining Relational Operations
+
+Java does not allow chained comparisons such as:
+
+```java
+a <= b <= c
+```
+
+Instead, use logical operators such as `&&` and `||` to combine separate boolean expressions.
+
+For example, to check whether `number` is between `100` and `200`:
+
+```java
+number > 100 && number < 200;
+```
+
+This means:
+
+```text
+number is greater than 100
+AND
+number is less than 200
+```
+
+Parentheses can make the expression easier to read:
+
+```java
+(number > 100) && (number < 200);
+```
+
+Parentheses are not required here because relational operators have higher priority than logical operators.
+
+
+### Checking a Range
+
+A variable can be checked against lower and upper boundaries:
+
+```java
+int number = 150;
+int low = 100;
+int high = 200;
+
+boolean inRange = number > low && number < high;
+```
+
+`inRange` is `true` because `150` is greater than `100` and less than `200`.
+
+Both conditions must be true because `&&` means **AND**.
+
+
+### Example: Checking Descending Order
+
+Suppose three heights are given, and we want to check whether they are arranged in descending order.
+
+```java
+import java.util.Scanner;
+
+public class CheckDescOrder {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int h1 = scanner.nextInt();
+        int h2 = scanner.nextInt();
+        int h3 = scanner.nextInt();
+
+        boolean descOrdered = (h1 >= h2) && (h2 >= h3);
+
+        System.out.println(descOrdered);
+    }
+}
+```
+
+For this input:
+
+```text
+185 178 172
+```
+
+The result is:
+
+```text
+true
+```
+
+Because:
+
+```text
+185 >= 178  → true
+178 >= 172  → true
+```
+
+Both conditions are true, so the final result is `true`.
+
+For this input:
+
+```text
+181 184 177
+```
+
+The result is:
+
+```text
+false
+```
+
+Because:
+
+```text
+181 >= 184  → false
+184 >= 177  → true
+```
+
+One condition is false, so the `&&` expression is `false`.
+
+
+### Boolean Result Without a Variable
+
+You do not always need to store the result in a separate variable.
+
+You can directly print the expression:
+
+```java
+System.out.println((h1 >= h2) && (h2 >= h3));
+```
+
+However, when a condition becomes long or complicated, storing it in a well-named variable can make the code easier to understand:
+
+```java
+boolean descOrdered = (h1 >= h2) && (h2 >= h3);
+```
+
+The variable name `descOrdered` makes the purpose of the condition clear.
+
+
+#### Key Points
+
+- Relational operators compare values.
+- Their result is always `true` or `false`.
+- Java has six relational operators: `==`, `!=`, `>`, `>=`, `<`, `<=`.
+- Arithmetic operations have higher priority than relational operators.
+- Java does not support chained comparisons like `a <= b <= c`.
+- Use logical operators such as `&&` and `||` to combine comparisons.
+- Parentheses can improve readability.
+- A well-named boolean variable can make a complex condition easier to understand.
+
+
+### Conditional Statements
+
+A **conditional statement** allows a program to perform different actions depending on whether a **Boolean expression** is `true` or `false`.
+
+A Boolean expression produces either `true` or `false`.
+
+Examples:
+
+```java
+a > b
+i - j == 1
+number % 2 == 0
+```
+
+Java provides several forms of conditional statements, including `if`, `if-else`, and `if-else-if`.
+
+
+### The `if` Statement
+
+The simplest form of a conditional statement is `if`.
+
+```java
+if (expression) {
+    // statements to execute if expression is true
+}
+```
+
+If the expression is `true`, the code inside the block is executed.
+
+If it is `false`, the program skips the block.
+
+For example:
+
+```java
+int age = 101;
+
+if (age > 100) {
+    System.out.println("Very experienced person");
+}
+```
+
+The message is printed only when `age > 100` is `true`.
+
+
+### Boolean Variables in Conditions
+
+When the condition is already stored in a `boolean` variable, you do not need to compare it with `true` or `false`.
+
+Instead of:
+
+```java
+boolean b = true;
+
+if (b == true) {
+    // do something
+}
+```
+
+write:
+
+```java
+boolean b = true;
+
+if (b) {
+    // do something
+}
+```
+
+To check the opposite condition, use `!`:
+
+```java
+if (!b) {
+    // do something
+}
+```
+
+
+### Nested `if` Statements
+
+An `if` statement can be placed inside another `if` statement.
+
+This allows a program to perform multiple levels of checks.
+
+```java
+if (condition1) {
+    if (condition2) {
+        // do something
+    }
+}
+```
+
+
+### The `if-else` Statement
+
+The `if` statement can be extended with `else` to provide an alternative action when the condition is `false`.
+
+```java
+if (expression) {
+    // do something
+} else {
+    // do something else
+}
+```
+
+Only **one** of the two blocks is executed.
+
+For example, a number can be checked to determine whether it is even or odd:
+
+```java
+int num = 10;
+
+if (num % 2 == 0) {
+    System.out.println("It's an even number");
+} else {
+    System.out.println("It's an odd number");
+}
+```
+
+A number is even when it can be divided by `2` without a remainder.
+
+For `num = 10`:
+
+```text
+10 % 2 == 0 → true
+```
+
+So the output is:
+
+```text
+It's an even number
+```
+
+For `num = 11`:
+
+```text
+11 % 2 == 0 → false
+```
+
+So the output is:
+
+```text
+It's an odd number
+```
+
+
+### The `if-else-if` Statement
+
+When there are multiple conditions, you can use `else if`.
+
+```java
+if (expression0) {
+    // do something
+} else if (expression1) {
+    // do something else
+} else if (expression2) {
+    // do something else
+}
+```
+
+You can also add a final `else` for cases where none of the previous conditions are true.
+
+For example:
+
+```java
+long dollars = 10_000;
+
+if (dollars < 1000) {
+    System.out.println("Buy a laptop");
+} else if (dollars < 2000) {
+    System.out.println("Buy a personal computer");
+} else if (dollars < 100_000) {
+    System.out.println("Buy a server");
+} else {
+    System.out.println("Buy a data center or a quantum computer");
+}
+```
+
+For `dollars = 10_000`:
+
+```text
+10_000 < 1_000     → false
+10_000 < 2_000     → false
+10_000 < 100_000   → true
+```
+
+Therefore, the output is:
+
+```text
+Buy a server
+```
+
+The conditions are checked **from top to bottom**. Once a condition is `true`, its block is executed and the remaining `else if` and `else` branches are skipped.
+
+
+#### Key Points
+
+- A conditional statement allows a program to make decisions.
+- Conditions are based on **Boolean expressions**.
+- `if` executes a block only when its condition is `true`.
+- `else` provides an alternative when the `if` condition is `false`.
+- `else if` allows multiple conditions to be checked.
+- Only one branch of an `if-else-if` chain is executed.
+- A `boolean` variable can be used directly as a condition.
+- Use `!` to negate a Boolean condition.
+- `if` statements can be nested inside other `if` statements.
+
+
+### Ternary Operator
+
+The **ternary operator**, also called the **conditional operator**, evaluates a condition and chooses between two expressions.
+
+It is a shorter way to express a simple `if-else` decision.
+
+The general syntax is:
+
+```java
+result = condition ? trueCase : elseCase;
+```
+
+If `condition` is `true`, `trueCase` is evaluated.
+
+If `condition` is `false`, `elseCase` is evaluated.
+
+
+### Ternary Operator vs `if-else`
+
+Suppose we want to find the larger of two numbers.
+
+Using `if-else`:
+
+```java
+int a = ...;
+int b = ...;
+int max;
+
+if (a > b) {
+    max = a;
+} else {
+    max = b;
+}
+```
+
+The same logic can be written using the ternary operator:
+
+```java
+int max = a > b ? a : b;
+```
+
+The ternary version is more concise because the result of the condition is directly assigned to `max`.
+
+
+### The `?` and `:` Operators
+
+The ternary operator uses two symbols:
+
+```text
+?
+:
+```
+
+For example:
+
+```java
+int max = a > b ? a : b;
+```
+
+The structure is:
+
+```text
+condition ? trueCase : elseCase
+```
+
+So:
+
+```text
+a > b       → condition
+a           → trueCase
+b           → elseCase
+```
+
+If `a > b` is `true`, the result is `a`.
+
+Otherwise, the result is `b`.
+
+
+### Using the Ternary Operator with Output
+
+The ternary operator can be used directly where an expression is expected.
+
+For example, to determine whether a number is even or odd:
+
+```java
+int num = 10;
+
+System.out.println(num % 2 == 0 ? "even" : "odd");
+```
+
+If `num` is `10`:
+
+```text
+10 % 2 == 0 → true
+```
+
+So the output is:
+
+```text
+even
+```
+
+If `num` is `11`:
+
+```text
+11 % 2 == 0 → false
+```
+
+The output is:
+
+```text
+odd
+```
+
+
+### Ternary Operator Has Three Operands
+
+The ternary operator is called **ternary** because it operates on three parts:
+
+```java
+condition ? trueCase : elseCase
+```
+
+For example:
+
+```java
+num % 2 == 0 ? "even" : "odd"
+```
+
+The three parts are:
+
+```text
+condition → num % 2 == 0
+trueCase  → "even"
+elseCase  → "odd"
+```
+
+The result of this expression is a `String`.
+
+
+### Nested Ternary Operators
+
+Java allows one ternary operator to be placed inside another.
+
+For example, we can compare two numbers and determine whether the first is equal to, greater than, or less than the second:
+
+```java
+int a = ...;
+int b = ...;
+
+String result = a == b ? "equal" :
+                a > b ? "more" : "less";
+```
+
+The first condition checks:
+
+```java
+a == b
+```
+
+If it is `true`, the result is:
+
+```text
+equal
+```
+
+Otherwise, the second ternary operator checks:
+
+```java
+a > b
+```
+
+If it is `true`, the result is:
+
+```text
+more
+```
+
+Otherwise:
+
+```text
+less
+```
+
+Another example:
+
+```java
+int result = a > b ? (a > c ? a : c) : (b > c ? b : c); // It finds max of three numbers.
+```
+
+Nested ternary operators can become difficult to read, so they should be used carefully. For more complicated conditions, an `if-else` statement is often easier to understand.
+
+
+
+#### Key Points
+
+- The ternary operator is also called the **conditional operator**.
+- It is a concise way to express a simple `if-else` decision.
+- Its syntax is `condition ? trueCase : elseCase`.
+- `?` separates the condition from the two possible expressions.
+- `:` separates the expression used when the condition is `true` from the expression used when it is `false`.
+- The ternary operator is an **expression**, so it can be used where an expression is expected.
+- It can be nested, but nested ternaries can reduce readability.
+
+
+### `for` Loop
+
+A **`for` loop** is used to repeatedly execute a block of code while a condition remains `true`.
+
+The basic syntax is:
+
+```java
+for (initialization; condition; modification) {
+    // code to execute
+}
+```
+
+It has three main parts:
+
+- **Initialization** — executed once before the loop starts. Usually used to initialize the loop variable.
+- **Condition** — checked before each iteration. If it is `false`, the loop stops.
+- **Modification** — executed after each iteration. Usually used to increment or decrement the loop variable.
+
+The execution order is:
+
+```text
+1. Initialization
+2. Check condition
+3. Execute loop body
+4. Modification
+5. Check condition again
+6. Repeat
+```
+
+For example:
+
+```java
+int n = 9;
+
+for (int i = 0; i <= n; i++) {
+    System.out.print(i + " ");
+}
+```
+
+Output:
+
+```text
+0 1 2 3 4 5 6 7 8 9
+```
+
+Here:
+
+```text
+int i = 0   → initialization
+i <= n      → condition
+i++         → modification
+```
+
+The variable `i` is available within the scope of the `for` loop, including its initialization, condition, modification, and body.
+
+Loop variables are commonly named `i`, `j`, `k`, or `index`.
+
+
+### Calculating a Sum with a `for` Loop
+
+A `for` loop can be used to repeatedly perform calculations.
+
+For example, calculating the sum of numbers from `1` to `10`:
+
+```java
+int startIncl = 1;
+int endExcl = 11;
+
+int sum = 0;
+
+for (int i = startIncl; i < endExcl; i++) {
+    sum += i;
+}
+
+System.out.println(sum);
+```
+
+Output:
+
+```text
+55
+```
+
+The loop adds:
+
+```text
+1 + 2 + 3 + ... + 10 = 55
+```
+
+
+### Skipping Parts of a `for` Loop
+
+The initialization, condition, and modification parts are optional.
+
+For example, the loop variable can be declared before the loop:
+
+```java
+int i = 10;
+
+for (; i > 0; i--) {
+    System.out.print(i + " ");
+}
+```
+
+A `for` loop can even omit all three parts:
+
+```java
+for (;;) {
+    // code
+}
+```
+
+This creates an **infinite loop** because there is no condition that can become `false`.
+
+
+### Nested `for` Loops
+
+A `for` loop can be placed inside another `for` loop. This is called a **nested loop**.
+
+Nested loops are useful when working with multidimensional structures such as tables and matrices.
+
+For example:
+
+```java
+for (int i = 1; i < 10; i++) {
+    for (int j = 1; j < 10; j++) {
+        System.out.print(i * j + "\t");
+    }
+    System.out.println();
+}
+```
+
+The outer loop controls the rows, while the inner loop controls the values within each row.
+
+This produces a multiplication table from `1` to `9`.
+
+
+#### Key Points
+
+- A `for` loop repeats a block of code.
+- Its basic structure is:
+
+```java
+for (initialization; condition; modification) {
+    // code
+}
+```
+
+- Initialization runs **once** at the beginning.
+- The condition is checked **before each iteration**.
+- The modification runs **after each iteration**.
+- The loop stops when the condition becomes `false`.
+- Any of the three parts can be omitted.
+- `for (;;) ` creates an infinite loop.
+- `for` loops can be nested inside other `for` loops.
+
+
+
+### `while` Loop
+
+A **`while` loop** repeatedly executes a block of code as long as a Boolean condition is `true`.
+
+The basic syntax is:
+
+```java
+while (condition) {
+    // code to execute repeatedly
+}
+```
+
+The condition is checked **before** the loop body is executed, so `while` is a **pre-test loop**.
+
+The execution flow is:
+
+```text
+1. Check the condition
+2. If true, execute the body
+3. Check the condition again
+4. Repeat until the condition becomes false
+```
+
+For example:
+
+```java
+int i = 0;
+
+while (i < 5) {
+    System.out.println(i);
+    i++;
+}
+```
+
+Output:
+
+```text
+0
+1
+2
+3
+4
+```
+
+When `i` becomes `5`, the condition `i < 5` becomes `false`, so the loop stops.
+
+Notice that `5` is not printed because the condition is checked before the body executes.
+
+
+### Infinite `while` Loop
+
+A `while` loop becomes infinite when its condition is always `true`.
+
+```java
+while (true) {
+    // code to execute indefinitely
+}
+```
+
+Infinite loops are useful in some situations, but they need a way to eventually stop if the program requires termination.
+
+
+### Using `while` with Characters
+
+A `while` loop can also be used to process characters.
+
+For example, this program prints the English alphabet:
+
+```java
+char letter = 'A';
+
+while (letter <= 'Z') {
+    System.out.print(letter);
+    letter++;
+}
+```
+
+Output:
+
+```text
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
+
+The `++` operator moves the `char` to the next character according to its Unicode value.
+
+After the loop finishes, `letter` becomes:
+
+```text
+[
+```
+
+because `[` comes immediately after `Z` in the Unicode character sequence.
+
+
+### `do-while` Loop
+
+A **`do-while` loop** is similar to a `while` loop, but the condition is checked **after** the loop body.
+
+The basic syntax is:
+
+```java
+do {
+    // code to execute
+} while (condition);
+```
+
+Because the condition is checked after the body, the body is **always executed at least once**.
+
+This makes `do-while` a **post-test loop**.
+
+Compare the two:
+
+```text
+while:
+condition → body → condition → body ...
+
+do-while:
+body → condition → body → condition ...
+```
+
+
+### Example of `do-while`
+
+A `do-while` loop can be used to repeatedly read numbers until the user enters `0`.
+
+```java
+import java.util.Scanner;
+
+public class DoWhileDemo {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int value;
+
+        do {
+            value = scanner.nextInt();
+            System.out.println(value);
+        } while (value != 0);
+    }
+}
+```
+
+For this input:
+
+```text
+1 2 4 0 3
+```
+
+The output is:
+
+```text
+1
+2
+4
+0
+```
+
+The program stops after reading `0`.
+
+The `3` is not processed because the condition becomes `false` after `0`.
+
+
+### `while` vs `do-while`
+
+The main difference is **when the condition is checked**.
+
+| Loop | Condition checked | Body executes at least once? |
+|---|---|---|
+| `while` | Before the body | No |
+| `do-while` | After the body | Yes |
+
+Use `while` when the condition should be checked before executing the body.
+
+Use `do-while` when the body must execute at least once.
+
+In practice, `do-while` is used less often than `while`.
+
+
+### Reading a Sequence of Unknown Length
+
+A `while` loop is useful when you **don't know how many values the user will enter**.
+
+`Scanner` provides `hasNextInt()` to check whether another integer is available.
+
+```java
+Scanner scanner = new Scanner(System.in);
+
+int sum = 0;
+
+while (scanner.hasNextInt()) {
+    int elem = scanner.nextInt();
+    sum += elem;
+}
+
+System.out.println(sum);
+```
+
+For example, if the input is:
+
+```text
+1 2 3
+```
+
+the program calculates:
+
+```text
+1 + 2 + 3 = 6
+```
+
+and prints:
+
+```text
+6
+```
+
+For:
+
+```text
+5 18 9 23 4
+```
+
+the result is:
+
+```text
+59
+```
+
+This is particularly useful when the number of inputs is **unknown**.
+
+
+### `hasNextInt()`
+
+`hasNextInt()` checks whether the next available input is an integer.
+
+```java
+while (scanner.hasNextInt()) {
+    int number = scanner.nextInt();
+    // process number
+}
+```
+
+The loop continues while another integer is available.
+
+When there is no more input, `hasNextInt()` eventually returns `false`.
+
+When reading from the console, the program may wait for more input because it cannot know that you are finished simply because you stopped typing.
+
+You can signal **EOF (End-Of-File)** from the console:
+
+```text
+Windows: Ctrl + Z, then Enter
+Linux:   Ctrl + D
+macOS:   Cmd + D
+```
+
+
+#### Key Points
+
+- `while` repeats code while a condition is `true`.
+- `while` checks the condition **before** executing the body.
+- Therefore, a `while` loop may execute **zero times**.
+- `do-while` checks the condition **after** executing the body.
+- Therefore, a `do-while` loop always executes **at least once**.
+- Both loops can be infinite if their condition never becomes `false`.
+- `hasNextInt()` is useful for processing a sequence when the number of inputs is unknown.
+- A `while` loop can contain conditional statements and other loops.
+
+
+
+### `break` Statement
+
+The **`break` statement** immediately terminates the loop in which it appears.
+
+It can be used with:
+
+- `for`
+- `while`
+- `do-while`
+
+It can also be used to terminate a `case` in a `switch` statement.
+
+Here, we focus on using `break` with loops.
+
+For example:
+
+```java
+int i = 10;
+
+while (true) {
+    if (i == 0) {
+        break;
+    }
+    i--;
+}
+```
+
+Although the loop condition is always `true`, the `break` statement stops the loop when `i` becomes `0`.
+
+
+### `break` and Nested Loops
+
+A `break` statement only terminates the **innermost loop in which it is located**.
+
+For example:
+
+```java
+for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+        System.out.print(j + " ");
+
+        if (i == j) {
+            break;
+        }
+    }
+
+    System.out.println();
+}
+```
+
+Here, `break` stops the inner loop controlled by `j`.
+
+It does **not** stop the outer loop controlled by `i`.
+
+The output is:
+
+```text
+0
+0 1
+0 1 2
+0 1 2 3
+0 1 2 3 4
+0 1 2 3 4 5
+0 1 2 3 4 5 6
+0 1 2 3 4 5 6 7
+0 1 2 3 4 5 6 7 8
+0 1 2 3 4 5 6 7 8 9
+```
+
+
+### Stopping an Outer Loop
+
+One way to stop an outer loop is to use a Boolean variable as a flag.
+
+```java
+boolean stopped = false;
+
+for (int i = 0; i < 10 && !stopped; i++) {
+    for (int j = 0; j < 10; j++) {
+        System.out.print(j + " ");
+
+        if (i == j) {
+            stopped = true;
+            break;
+        }
+    }
+
+    System.out.println();
+}
+```
+
+When `i == j`, `stopped` becomes `true`.
+
+The outer loop then stops because:
+
+```java
+i < 10 && !stopped
+```
+
+becomes `false`.
+
+
+### Labeled `break`
+
+Java also provides a **labeled `break`**, which can be used to break out of an outer loop directly.
+
+For example:
+
+```java
+outerLoop:
+for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+        System.out.print(j + " ");
+
+        if (i == j) {
+            break outerLoop;
+        }
+    }
+
+    System.out.println();
+}
+```
+
+`break outerLoop` terminates the loop associated with the `outerLoop` label, including both the inner and outer loops.
+
+Although this is possible, labeled `break` is generally avoided when a simpler solution can make the code easier to understand.
+
+
+### `continue` Statement
+
+The **`continue` statement** skips the current iteration of a loop and moves to the next iteration.
+
+It can be used inside:
+
+- `for`
+- `while`
+- `do-while`
+
+For example, this program prints only even numbers:
+
+```java
+int n = 10;
+
+for (int i = 0; i < n; i++) {
+    if (i % 2 != 0) {
+        continue;
+    }
+
+    System.out.print(i + " ");
+}
+```
+
+When `i` is odd:
+
+```java
+i % 2 != 0
+```
+
+is `true`, so `continue` skips the rest of the current iteration.
+
+Output:
+
+```text
+0 2 4 6 8
+```
+
+
+### `continue` in Different Loops
+
+The effect of `continue` depends on the type of loop.
+
+In a `for` loop, `continue` moves control to the **modification** part:
+
+```text
+body → continue → modification → condition
+```
+
+In a `while` or `do-while` loop, `continue` moves control directly to the **condition**:
+
+```text
+body → continue → condition
+```
+
+Like `break`, `continue` only affects the loop in which it is located.
+
+
+### Avoiding Unnecessary `continue`
+
+Sometimes a loop can be written without using `continue`.
+
+For example:
+
+```java
+int n = 10;
+
+for (int i = 0; i < n; i++) {
+    if (i % 2 == 0) {
+        System.out.print(i + " ");
+    }
+}
+```
+
+This produces the same output:
+
+```text
+0 2 4 6 8
+```
+
+In this case, the second version is simpler because it directly describes what should happen.
+
+`break` and `continue` are useful, but they should be used when they make the code clearer rather than making the control flow unnecessarily complicated.
+
+
+#### Key Points
+
+- `break` **terminates the current loop** immediately.
+- `break` only affects the innermost loop where it appears.
+- A labeled `break` can terminate an outer loop.
+- `continue` **skips the current iteration** and moves to the next one.
+- In a `for` loop, `continue` moves to the modification step.
+- In `while` and `do-while`, `continue` moves to the condition.
+- Both `break` and `continue` can be used with `for`, `while`, and `do-while`.
+- Use them when they make the loop's logic clearer and easier to understand.
+
+
+
+### `switch` Statement
+
+When a program needs to perform different actions depending on the value of a single variable, using a long `if-else-if` chain can become difficult to read.
+
+For example:
+
+```java
+int action = ...;
+
+if (action == 1) {
+    System.out.println("Starting a new game...");
+} else if (action == 2) {
+    System.out.println("Loading a saved game");
+} else if (action == 3) {
+    System.out.println("Displaying help...");
+} else if (action == 4) {
+    System.out.println("Exiting...");
+} else {
+    System.out.println("Unsuitable action, please, try again");
+}
+```
+
+A `switch` statement provides a cleaner way to choose between multiple cases based on the value of one variable.
+
+
+### `switch`, `case`, and `default`
+
+The basic structure is:
+
+```java
+switch (variable) {
+    case value1:
+        // code
+        break;
+
+    case value2:
+        // code
+        break;
+
+    default:
+        // code
+}
+```
+
+For example:
+
+```java
+switch (action) {
+    case 1:
+        System.out.println("Starting a new game...");
+        break;
+
+    case 2:
+        System.out.println("Loading a saved game");
+        break;
+
+    case 3:
+        System.out.println("Displaying help...");
+        break;
+
+    case 4:
+        System.out.println("Exiting...");
+        break;
+
+    default:
+        System.out.println("Unsuitable action, please, try again");
+}
+```
+
+The `switch` compares the value of `action` with each `case`.
+
+If a matching case is found, its code is executed.
+
+If no case matches, the `default` branch is executed.
+
+
+### General Form
+
+The general structure is:
+
+```java
+switch (variable) {
+    case value1:
+        // do something
+        break;
+
+    case value2:
+        // do something
+        break;
+
+    // other cases
+
+    case valueN:
+        // do something
+        break;
+
+    default:
+        // do something by default
+}
+```
+
+The `switch` and `case` keywords are required.
+
+The `default` and `break` keywords are optional.
+
+A `switch` variable can be an integer type, `char`, `String`, or an enumeration.
+
+
+### The `break` Statement in `switch`
+
+The `break` statement stops the execution of the entire `switch` statement.
+
+For example:
+
+```java
+int val = 1;
+
+switch (val) {
+    case 0:
+        System.out.println("zero");
+        break;
+
+    case 1:
+        System.out.println("one");
+        break;
+
+    case 2:
+        System.out.println("two");
+        break;
+
+    default:
+        System.out.println("The value is less than zero or greater than two");
+}
+```
+
+When `val` is `1`, the output is:
+
+```text
+one
+```
+
+The `break` prevents the following cases from being executed.
+
+
+### The `default` Case
+
+The `default` branch executes when none of the cases match.
+
+For example:
+
+```java
+int val = 10;
+
+switch (val) {
+    case 0:
+        System.out.println("zero");
+        break;
+
+    case 1:
+        System.out.println("one");
+        break;
+
+    case 2:
+        System.out.println("two");
+        break;
+
+    default:
+        System.out.println("The value is less than zero or greater than two");
+}
+```
+
+Since `10` does not match `0`, `1`, or `2`, the `default` branch executes.
+
+Output:
+
+```text
+The value is less than zero or greater than two
+```
+
+The `break` inside `default` is optional because there are no following cases.
+
+
+### Omitting `break`
+
+If a matching `case` does not contain `break`, Java continues executing the following cases.
+
+For example:
+
+```java
+int val = 1;
+
+switch (val) {
+    case 0:
+        System.out.println("zero");
+        break;
+
+    case 1:
+        System.out.println("one");
+
+    case 2:
+        System.out.println("two");
+        break;
+
+    default:
+        System.out.println("default");
+}
+```
+
+Output:
+
+```text
+one
+two
+```
+
+The `case 1` does not have a `break`, so execution continues into `case 2`.
+
+This behavior is called **fall-through**.
+
+For ordinary independent cases, forgetting `break` is usually a mistake, so use `break` when you want execution to stop after the matching case.
+
+
+### `switch` vs `if-else-if`
+
+A `switch` is particularly useful when you are comparing **one variable against several specific values**.
+
+For example:
+
+```java
+if (action == 1) {
+    // ...
+} else if (action == 2) {
+    // ...
+} else if (action == 3) {
+    // ...
+}
+```
+
+can often be expressed more clearly as:
+
+```java
+switch (action) {
+    case 1:
+        // ...
+        break;
+
+    case 2:
+        // ...
+        break;
+
+    case 3:
+        // ...
+        break;
+}
+```
+
+For more complex conditions involving ranges or multiple comparisons, `if-else` is generally more suitable.
+
+
+#### Key Points
+
+- `switch` selects a branch based on the value of one variable.
+- `case` defines a possible value to match.
+- `default` runs when no case matches.
+- `break` stops execution of the `switch`.
+- Without `break`, execution can **fall through** into the next case.
+- `switch` is useful when comparing one value against multiple specific values.
+- Java also introduced newer forms of `switch`, including **switch expressions**.
+
+
+
+### Switch Statements vs Switch Expressions
+
+A **switch statement** executes code for a matching `case`, while a **switch expression** evaluates to a value that can be assigned to a variable.
+
+A switch expression can use the **arrow syntax**, which makes the code shorter and removes the need for `break`.
+
+
+### Switch Statement
+
+With a traditional switch statement, the result is usually assigned to a variable inside the cases:
+
+```java
+int tasteValue = 0;
+
+switch (taste) {
+    case SUGAR:
+    case PIZZA:
+    case CHOCOLATE:
+        tasteValue = 10;
+        break;
+
+    case MEATBALLS:
+    case STEAK:
+        tasteValue = 7;
+        break;
+
+    case BROCCOLI:
+        tasteValue = 4;
+        break;
+
+    case DIRT:
+        tasteValue = 1;
+        break;
+
+    default:
+        throw new IllegalStateException("Invalid tastable object: " + taste);
+}
+```
+
+The variable must be initialized before the `switch`, and `break` is used to prevent fall-through.
+
+
+### Switch Expression
+
+A switch expression can directly produce a value:
+
+```java
+int tasteValue = switch (taste) {
+    case SUGAR, PIZZA, CHOCOLATE -> 10;
+    case MEATBALLS, STEAK -> 7;
+    case BROCCOLI -> 4;
+    case DIRT -> 1;
+    default -> throw new IllegalStateException("Invalid tastable object: " + taste);
+};
+```
+
+Here, the entire `switch` produces an `int` value that is assigned to `tasteValue`.
+
+The arrow syntax:
+
+```java
+case VALUE -> result;
+```
+
+does not require `break`.
+
+Multiple cases that produce the same value can also be combined:
+
+```java
+case SUGAR, PIZZA, CHOCOLATE -> 10;
+```
+
+
+### Switch Statement vs Switch Expression
+
+| Switch Statement | Switch Expression |
+|---|---|
+| Executes statements | Produces a value |
+| Usually updates a variable | Can be directly assigned to a variable |
+| Traditional `case:` syntax | Can use `case ... ->` |
+| Requires `break` to prevent fall-through | Arrow syntax does not need `break` |
+| `break` can be used | `yield` is used when a block needs to produce a value |
+
+
+### Switch Expression with `default`
+
+A switch expression must account for all possible cases.
+
+For most types, this means providing a `default` case:
+
+```java
+int value = switch (number) {
+    case 1 -> 10;
+    case 2 -> 20;
+    default -> 0;
+};
+```
+
+The `default` case can also throw an exception instead of producing a value:
+
+```java
+default -> throw new IllegalStateException("Invalid value");
+```
+
+
+### Switch Expression with a Code Block
+
+An arrow case can contain a code block.
+
+When a block needs to produce the value of the switch expression, use `yield`:
+
+```java
+int tasteValue = switch (taste) {
+    case SUGAR, PIZZA, CHOCOLATE -> {
+        System.out.println(10);
+        yield 10;
+    }
+
+    case MEATBALLS, STEAK -> {
+        System.out.println(7);
+        yield 7;
+    }
+
+    case BROCCOLI -> {
+        System.out.println(4);
+        yield 4;
+    }
+
+    case DIRT -> {
+        System.out.println(1);
+        yield 1;
+    }
+
+    default -> {
+        throw new IllegalStateException("Invalid tastable object: " + taste);
+    }
+};
+```
+
+The `yield` statement provides the value produced by that case.
+
+This is useful when you need to execute additional code before producing the result.
+
+
+### `yield` with Colon Syntax
+
+Switch expressions can also use the traditional colon syntax:
+
+```java
+int tasteValue = switch (taste) {
+    case SUGAR:
+    case PIZZA:
+    case CHOCOLATE:
+        yield 10;
+
+    case MEATBALLS:
+    case STEAK:
+        yield 7;
+
+    case BROCCOLI:
+        yield 4;
+
+    case DIRT:
+        yield 1;
+
+    default:
+        throw new IllegalStateException("Invalid tastable object: " + taste);
+};
+```
+
+The `yield` keyword specifies the value produced by the case.
+
+`yield` cannot be used in a traditional switch statement, while `break` is not used to produce a value in a switch expression.
+
+
+#### Key Points
+
+- A **switch statement** executes statements based on a matching case.
+- A **switch expression** produces a value.
+- A switch expression can be directly assigned to a variable.
+- The arrow syntax `case value -> result` removes the need for `break`.
+- Multiple cases can be combined using commas:
+
+```java
+case A, B, C -> value;
+```
+
+- A switch expression must account for all possible cases.
+- `yield` is used when a switch expression's case contains a code block and needs to produce a value.
+- Arrow syntax is generally more concise and easier to read than the traditional colon syntax.
 
 ---
 
