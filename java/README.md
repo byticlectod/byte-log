@@ -3101,4 +3101,752 @@ case A, B, C -> value;
 
 ---
 
+## Methods
+
+A method is a reusable block of code that performs a specific task. Java provides built-in methods, but programmers can also create **user-defined methods** for their own purposes.
+
+
+### Method Syntax
+
+A method can contain **modifiers**, a **return type**, a **name**, **parameters**, and a **body**.
+
+```java
+public static int countSeeds(int parrotWeight, int parrotAge) {
+    return parrotWeight / 5 + parrotAge;
+}
+```
+
+The combination of the method name and its parameter list is called the **method signature**.
+
+For example:
+
+```text
+countSeeds(int, int)
+```
+
+A method can also declare exceptions, but simple methods can be written without them.
+
+
+### Method Names
+
+A method name must be a legal identifier.
+
+- Identifiers are case-sensitive.
+- They can contain letters, digits, `_`, or currency characters such as `$`.
+- They cannot start with a digit.
+- They cannot be Java keywords.
+
+By convention, method names usually describe an action and use **lower camel case**.
+
+```java
+sum();
+multiply();
+getValue();
+calculateNumberOfOranges();
+```
+
+One-word method names are conventionally written in lowercase, while each additional word in a multi-word name starts with an uppercase letter.
+
+
+### Modifiers
+
+Modifiers provide information about a method.
+
+**Access modifiers** control who can access the method. For example, `public` allows the method to be invoked from anywhere.
+
+**Non-access modifiers** describe the behavior of the method. For example, `static` means the method belongs to the class rather than an object.
+
+```java
+public static int countSeeds() {
+    // ...
+}
+```
+
+A method without `static` is an **instance method** and is invoked through an object or instance of the class.
+
+The recommended modifier order in the example is:
+
+```text
+public static
+```
+
+
+### Method Parameters
+
+Parameters are defined inside the parentheses after the method name. They specify the **type, number, and order** of values passed to the method.
+
+```java
+public static void replace(char a, char b) {
+    // ...
+}
+```
+
+Methods can also have no parameters. These are **non-parameterized methods**.
+
+
+### Return Value
+
+A method can return a value after completing its execution.
+
+The return type is written before the method name.
+
+```java
+public static int countSeeds(int parrotWeight, int parrotAge) {
+    return parrotWeight / 5 + parrotAge;
+}
+```
+
+The returned value can be a primitive type such as `int`, `float`, `double`, or `boolean`, or a reference type such as `String`.
+
+The `return` statement ends the method and provides the result to the code that called it.
+
+
+### `void` Methods
+
+A method that doesn't return a value uses the `void` return type.
+
+```java
+public static void printSeedsCount(int seeds) {
+    System.out.println("Give your parrot " + seeds + "g of seeds per day");
+}
+```
+
+A `void` method can still use `return;` to exit early, but it cannot return a value.
+
+```java
+public static void isPositive(int num) {
+    if (num > 0) {
+        System.out.println("The number is positive");
+    } else {
+        return;
+    }
+}
+```
+
+Trying to return a value from a `void` method causes a compilation error.
+
+
+### Method Invocation
+
+A method is **invoked** by calling its name and providing the required arguments.
+
+```java
+int myParrotPortion = countSeeds(myParrotWeight, myParrotAge);
+printSeedsCount(myParrotPortion);
+```
+
+The returned value can be stored in a variable, printed, or passed to another method.
+
+
+### Passing Primitive Values to Methods
+
+When a variable of a **primitive type** is passed to a method, the method receives a copy of its value.
+
+Changes made to the parameter inside the method do not change the original variable.
+
+```java
+public static void addSeeds(int portion) {
+    portion += 50;
+    System.out.println("The increased portion is " + portion);
+}
+```
+
+If `myParrotPortion` is passed to `addSeeds()`, changing `portion` inside the method does not change `myParrotPortion`.
+
+```java
+int myParrotPortion = 23;
+
+addSeeds(myParrotPortion);
+
+System.out.println(myParrotPortion); // 23
+```
+
+The method modifies its own parameter variable, which contains a copy of the original primitive value.
+
+
+### The `main` Method
+
+The **`main` method** is the entry point of a Java application. It is where program execution begins.
+
+A simple Java application contains a class with a `main` method:
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Hello, Java");
+    }
+}
+```
+
+The class can have any name, but the method used as the application's entry point must be named `main`.
+
+
+### Declaration of the `main` Method
+
+The standard declaration is:
+
+```java
+public static void main(String[] args)
+```
+
+Each part has a specific purpose:
+
+- `public` — allows the method to be invoked from anywhere.
+- `static` — allows the method to be invoked without creating an instance of the class.
+- `void` — indicates that the method does not return a value.
+- `main` — the name of the method and must be written exactly this way.
+- `String[] args` — an array containing arguments passed to the program from the command line. It is empty when no arguments are provided.
+
+The `main` method is contained inside a class.
+
+
+### `psvm` Shortcut
+
+In IntelliJ IDEA, typing:
+
+```text
+psvm
+```
+
+and pressing **Tab** automatically generates a `main` method:
+
+```java
+public static void main(String[] args) {
+    
+}
+```
+
+
+### Invalid `main` Method Declarations
+
+An incorrect `main` method declaration can result in either a **compilation error** or a program that compiles but cannot be started.
+
+If the declaration breaks Java syntax, the program cannot be compiled.
+
+For example, the return type is missing:
+
+```java
+public static main(String[] args)
+```
+
+Or there is a typo in a keyword:
+
+```java
+pulic static void main(String[] args)
+```
+
+
+### A Program That Compiles but Cannot Start
+
+A method can be valid Java syntax but still fail to satisfy the requirements of the `main` method.
+
+For example, the parameter must be `String[] args`:
+
+```java
+public static void main(String args) {
+    System.out.println("Hello, Java");
+}
+```
+
+Another invalid declaration is missing `static`:
+
+```java
+public void main(String[] args) {
+    System.out.println("Hello, Java");
+}
+```
+
+In these cases, the method is a valid method declaration, but it does not satisfy the required form of the `main` method, so the application cannot be started normally.
+
+
+### Functional Decomposition
+
+**Functional decomposition** is the process of breaking a complex problem into smaller methods, where each method performs a specific task.
+
+Breaking a program into smaller methods makes it easier to **read, understand, reuse, test, and debug**.
+
+For example, instead of putting all the logic of a Smart Home application into one large block, we can separate it into methods such as:
+
+```text
+accessSmartHome()
+chooseAction()
+controlMusic()
+controlLight()
+controlDoor()
+```
+
+Each method handles a specific part of the program.
+
+
+### Decomposing a Program into Methods
+
+A large program may work correctly even when all its logic is written together, but it can become difficult to maintain or extend.
+
+With functional decomposition, the program can be divided into separate methods:
+
+```java
+public static void controlMusic() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("on/off?");
+    String tumbler = scanner.next();
+
+    if (tumbler.equals("on")) {
+        System.out.println("The music is on");
+    } else if (tumbler.equals("off")) {
+        System.out.println("The music is off");
+    } else {
+        System.out.println("Invalid operation");
+    }
+}
+```
+
+Other actions can be handled by separate methods such as `controlLight()` and `controlDoor()`.
+
+
+### Controlling Program Flow with Methods
+
+A method can call another method to organize the flow of a program.
+
+For example, a method can check the password and then call `chooseAction()` if the password is correct:
+
+```java
+public static void accessSmartHome() {
+    Scanner scanner = new Scanner(System.in);
+    final int password = 76543210;
+
+    System.out.println("Enter password: ");
+    int passwordInput = scanner.nextInt();
+
+    if (passwordInput == password) {
+        chooseAction();
+    } else {
+        System.out.println("Incorrect password!");
+    }
+}
+```
+
+The `main` method can then start the program by calling `accessSmartHome()`:
+
+```java
+public static void main(String[] args) {
+    accessSmartHome();
+}
+```
+
+This creates a flow where one method delegates part of the work to another method.
+
+
+### Adding New Features
+
+Functional decomposition also makes it easier to extend a program.
+
+For example, if a new electric kettle is added, we can create a separate method:
+
+```java
+public static void controlKettle() {
+    // ...
+}
+```
+
+Then the main menu can call it when the user selects the corresponding option:
+
+```java
+case 4:
+    controlKettle();
+    break;
+```
+
+Instead of modifying one large block of code, the new functionality is isolated in its own method.
+
+
+### Benefits of Functional Decomposition
+
+Breaking a program into methods makes it easier to:
+
+- **Read** the code
+- **Understand** individual parts
+- **Reuse** functionality
+- **Test** separate components
+- **Debug** problems
+- **Extend** the program
+- **Maintain** the code in the future
+
+The goal is to divide a complex problem into smaller, manageable tasks that can work together to solve the overall problem.
+
+
+### Calling a Method
+
+A method can be invoked by writing its name followed by parentheses and providing the required **arguments**.
+
+```java
+getVolume(a, b, h);
+```
+
+Here, `getVolume` is the method name, while `a`, `b`, and `h` are the arguments passed to it.
+
+Calling a method instructs the program to execute the code inside that method.
+
+
+### Method Declaration vs Method Call
+
+A **method declaration** defines what the method does:
+
+```java
+static void calculateVolume(int length, int width, int height) {
+    int volume = length * width * height;
+    System.out.println(volume);
+}
+```
+
+A **method call** invokes that method:
+
+```java
+calculateVolume(3, 7, 2);
+```
+
+The values `3`, `7`, and `2` are assigned to `length`, `width`, and `height` respectively.
+
+
+### Calling a Method
+
+A method can be called from another method, including `main()`.
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        calculateVolume(3, 7, 2);
+    }
+
+    static void calculateVolume(int length, int width, int height) {
+        int volume = length * width * height;
+        System.out.println("The volume of a box is equal to " + volume);
+    }
+}
+```
+
+Output:
+
+```text
+The volume of a box is equal to 42
+```
+
+Calling a method means instructing the program to execute the set of statements contained in that method.
+
+
+### Passing Different Arguments
+
+The same method can be called multiple times with different arguments.
+
+```java
+calculateVolume(3, 7, 2);   // 42
+calculateVolume(14, 6, 8);  // 672
+calculateVolume(2, 2, 2);   // 8
+```
+
+The arguments must have the **correct number and types** expected by the method.
+
+For example, these calls cause compilation errors:
+
+```java
+calculateVolume(1, 2);
+calculateVolume("Hello", true, 6);
+```
+
+The first call provides too few arguments, while the second provides arguments of incompatible types.
+
+
+### Methods with Different Parameter Types
+
+A method can accept parameters of different types.
+
+```java
+static void printStudent(String name, double averageScore) {
+    System.out.println("Name: " + name);
+    System.out.println("Average score: " + averageScore);
+}
+```
+
+It can be called by providing arguments that match the expected types:
+
+```java
+printStudent("John", 3.14);
+```
+
+Output:
+
+```text
+Name: John
+Average score: 3.14
+```
+
+A method that does not require parameters can be called with empty parentheses:
+
+```java
+doSomething();
+```
+
+
+### Calling Methods from Other Classes
+
+A method can be called from outside the class it belongs to by using the class name as a prefix.
+
+For example:
+
+```java
+Math.round(79.378);
+Character.isLetter('a');
+```
+
+Here, `Math` and `Character` are the class names.
+
+```java
+double weight = 63.85;
+weight = Math.round(weight);
+```
+
+After the call, `weight` becomes `64.0`.
+
+
+### Instance Methods
+
+**Instance methods** operate on a specific object and require an instance to invoke them.
+
+For example:
+
+```java
+String s = "HellO, WoRlD!";
+s = s.toLowerCase();
+```
+
+Here, `toLowerCase()` is called on the `String` object `s`.
+
+The method operates on that particular instance and produces:
+
+```text
+hello, world!
+```
+
+
+### Built-in and User-defined Methods
+
+Java provides **built-in methods** as part of its standard library. They perform common operations such as rounding numbers, comparing values, and working with characters.
+
+Examples:
+
+```java
+Math.round(79.378);
+Character.isLetter('a');
+```
+
+**User-defined methods** are created by programmers for specific tasks.
+
+```java
+static int calculateSum(int a, int b) {
+    return a + b;
+}
+```
+
+Using methods avoids rewriting the same logic and allows programs to be divided into reusable pieces.
+
+
+### Method Overloading
+
+**Method overloading** allows multiple methods to have the same name while having different parameter lists.
+
+The methods can differ by:
+
+- Number of parameters
+- Type of parameters
+- Order of parameters
+
+The compiler determines which overloaded method to call based on the arguments provided.
+
+
+### Method Signature
+
+A **method signature** consists of the method name and the types, number, and order of its parameters.
+
+```java
+public int sum(int a, int b)
+```
+
+The signature is:
+
+```text
+sum(int, int)
+```
+
+The parameter names and return type are not part of the method signature.
+
+Two methods cannot have the same signature.
+
+
+### Creating Overloaded Methods
+
+For example, `Math` contains overloaded versions of `abs()`:
+
+```java
+public static int abs(int a) {
+    return (a < 0) ? -a : a;
+}
+
+public static float abs(float a) {
+    return (a <= 0.0F) ? 0.0F - a : a;
+}
+```
+
+Both methods have the same name but accept different parameter types.
+
+```java
+abs(10);      // uses abs(int)
+abs(10.5F);   // uses abs(float)
+```
+
+However, changing only the return type does **not** create an overloaded method.
+
+```java
+public static int abs(int a) {
+    // ...
+}
+
+public static float abs(int a) {
+    // ...
+}
+```
+
+These have the same signature and cause a compilation error.
+
+
+### Overloading with Different Parameters
+
+Multiple methods can share the same name while accepting different parameters.
+
+```java
+public static void print(String stringToPrint) {
+    System.out.println(stringToPrint);
+}
+
+public static void print(String stringToPrint, int times) {
+    for (int i = 0; i < times; i++) {
+        System.out.println(stringToPrint);
+    }
+}
+
+public static void print(int times, String stringToPrint) {
+    for (int i = 0; i < times; i++) {
+        System.out.println(stringToPrint);
+    }
+}
+
+public static void print(int val) {
+    System.out.println(val);
+}
+```
+
+They can all be called using the same method name:
+
+```java
+print("some string");
+print("another string", 2);
+print(2, "another string again");
+print(5);
+```
+
+Changing the **order** of parameters is also a valid form of overloading when the parameter types in the positions are different.
+
+
+### Overloading and Type Casting
+
+When overloaded methods differ only by parameter type, Java can use **implicit casting** to find a suitable method.
+
+```java
+public static void print(short a) {
+    System.out.println("short arg: " + a);
+}
+
+public static void print(int a) {
+    System.out.println("int arg: " + a);
+}
+
+public static void print(long a) {
+    System.out.println("long arg: " + a);
+}
+
+public static void print(double a) {
+    System.out.println("double arg: " + a);
+}
+```
+
+An integer literal such as `100` is treated as an `int` by default:
+
+```java
+print(100);
+```
+
+Output:
+
+```text
+int arg: 100
+```
+
+If the `int` version is removed, Java can use the next suitable wider type:
+
+```text
+long → double
+```
+
+For example, without `print(int)`:
+
+```java
+print(100);
+```
+
+calls the `long` version.
+
+
+### Explicit Casting with Overloading
+
+Java does not automatically narrow an `int` to a `short` when choosing an overloaded method.
+
+If only the `short` version exists:
+
+```java
+public static void print(short a) {
+    System.out.println("short arg: " + a);
+}
+```
+
+This does not compile:
+
+```java
+print(100);
+```
+
+because `100` is an `int` literal.
+
+An explicit cast is required:
+
+```java
+print((short) 100);
+```
+
+This explicitly converts the value to `short` before calling the method.
+
+
+#### Key Points
+
+- Method overloading uses the **same method name with different parameter lists**.
+- A method signature includes the **name and parameter types, number, and order**.
+- Changing only the return type does not overload a method.
+- Parameter order can be used for overloading.
+- The compiler selects the appropriate overloaded method based on the arguments.
+- Java can use implicit widening conversions when resolving overloaded methods.
+- Narrowing conversions require explicit casting.
+
+---
+
+
 
