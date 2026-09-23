@@ -3849,4 +3849,675 @@ This explicitly converts the value to `short` before calling the method.
 ---
 
 
+## Arrays
+
+An **array** is a collection of elements of the same type stored sequentially in memory.
+
+The size of an array is fixed when it is created and cannot be changed later. However, the values stored in its elements can be modified.
+
+Each element is accessed using a numerical **index**, starting from `0`.
+
+```text
+Index:   0   1   2   3
+Value:  10  20  30  40
+```
+
+The last element is always at:
+
+```text
+array.length - 1
+```
+
+Arrays are reference types and can store elements of any type.
+
+
+### Array Declaration
+
+The preferred way to declare an array is:
+
+```java
+int[] array;
+```
+
+The brackets can also be placed after the variable name:
+
+```java
+int array[];
+```
+
+However, the first form is more commonly used in Java.
+
+Declaration only creates the array variable; it does not create the array object itself.
+
+
+### Creating and Initializing an Array
+
+An array can be created and initialized by providing its elements directly:
+
+```java
+int[] numbers = {1, 2, 3, 4};
+```
+
+The values can also come from variables:
+
+```java
+int a = 1, b = 2, c = 3, d = 4;
+int[] numbers = {a, b, c, d};
+```
+
+When using this form, the elements must be known when the array is created. 
+
+
+### Creating an Array with `new`
+
+When the number of elements is known but the values are not, use the `new` keyword:
+
+```java
+int n = 5;
+int[] numbers = new int[n];
+```
+
+The array is created with `n` elements and initialized with the **default value** of its type.
+
+For an `int` array, the default value is `0`.
+
+```java
+int[] numbers = new int[3];
+
+// [0, 0, 0]
+```
+
+Declaration and instantiation can also be separated:
+
+```java
+int[] numbers;
+numbers = new int[n];
+```
+
+
+### Array Initialization with `new`
+
+You can also use `new` while explicitly providing the elements:
+
+```java
+float[] floatNumbers = new float[] {1.02f, 0.03f, 4f};
+```
+
+For primitive types, elements receive their default values when no explicit values are provided.
+
+The `Arrays` utility class can be used to fill an array:
+
+```java
+int size = 10;
+char[] characters = new char[size];
+
+Arrays.fill(characters, 0, size / 2, 'A');
+Arrays.fill(characters, size / 2, size, 'B');
+
+System.out.println(Arrays.toString(characters));
+```
+
+Output:
+
+```text
+[A, A, A, A, A, B, B, B, B, B]
+```
+
+
+
+### Array Length
+
+The number of elements in an array can be obtained using the `length` property.
+
+```java
+int[] array = {1, 2, 3, 4};
+
+int length = array.length;
+
+System.out.println(length);
+```
+
+Output:
+
+```text
+4
+```
+
+Remember that `length` is a property, not a method, so you use:
+
+```java
+array.length
+```
+
+not:
+
+```java
+array.length()
+```
+
+
+
+### Accessing Array Elements
+
+Use an index to read or modify an element.
+
+To set a value:
+
+```java
+array[index] = value;
+```
+
+To get a value:
+
+```java
+value = array[index];
+```
+
+Indexes range from `0` to `length - 1`.
+
+For example:
+
+```java
+int[] numbers = new int[3];
+
+numbers[0] = 1;
+numbers[1] = 2;
+numbers[2] = numbers[0] + numbers[1];
+```
+
+The array changes as follows:
+
+```text
+[0, 0, 0]
+[1, 0, 0]
+[1, 2, 0]
+[1, 2, 3]
+```
+
+
+### Array Index Out of Bounds
+
+Trying to access an index that doesn't exist causes a runtime exception.
+
+For example:
+
+```java
+int[] numbers = new int[3];
+
+int elem = numbers[3];
+```
+
+The valid indexes are only `0`, `1`, and `2`.
+
+Accessing index `3` causes an:
+
+```text
+ArrayIndexOutOfBoundsException
+```
+
+
+#### Key Points
+
+- An array stores multiple elements of the **same type**.
+- Array indexes start at `0`.
+- The last index is `array.length - 1`.
+- An array's size is **fixed** after creation.
+- Arrays are **reference types**.
+- Use `new` to create an array with a specified size.
+- Elements receive default values when no values are provided.
+- Use `array.length` to get the number of elements.
+- Access elements with `array[index]`.
+- Accessing an invalid index causes `ArrayIndexOutOfBoundsException`.
+
+
+### Processing Arrays with Loops
+
+Arrays are often processed using algorithms such as finding the maximum value, sorting elements, printing only positive numbers, reversing the order, or calculating an average.
+
+A loop can be used to visit each element of an array. The array's `.length` property helps determine how many elements to process and prevents accessing an invalid index.
+
+```java
+int n = 10;
+int[] squares = new int[n];
+
+for (int i = 0; i < squares.length; i++) {
+    squares[i] = i * i;
+}
+
+System.out.println(Arrays.toString(squares));
+```
+
+Output:
+
+```text
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+The loop uses `i` as the index and stores the square of each index in the corresponding array element.
+
+
+### Checking Array Order
+
+A loop can be used to check whether an array is sorted in ascending order.
+
+```java
+int[] numbers = {1, 2, 3, 4, 5, 10, 6};
+
+boolean broken = false;
+
+for (int i = 1; i < numbers.length; i++) {
+    if (numbers[i] < numbers[i - 1]) {
+        broken = true;
+        break;
+    }
+}
+
+if (broken) {
+    System.out.println("BROKEN");
+} else {
+    System.out.println("OK");
+}
+```
+
+The loop starts at index `1` because each element is compared with the previous element.
+
+Here, `10 > 6`, so the array is not in ascending order and the output is:
+
+```text
+BROKEN
+```
+
+`while` and `do-while` loops can also be used to process arrays, although `for` loops are commonly used for this purpose.
+
+
+### Reading an Array from Standard Input
+
+A loop can read all elements of an array from `Scanner`.
+
+For example:
+
+```text
+5
+101 102 504 302 881
+```
+
+The first value represents the array length.
+
+```java
+Scanner scanner = new Scanner(System.in);
+
+int len = scanner.nextInt();
+int[] array = new int[len];
+
+for (int i = 0; i < len; i++) {
+    array[i] = scanner.nextInt();
+}
+
+System.out.println(Arrays.toString(array));
+```
+
+Output:
+
+```text
+[101, 102, 504, 302, 881]
+```
+
+The loop reads one number at a time and stores it at the corresponding index.
+
+
+### For-Each Loop
+
+Java provides a special form of the `for` loop called the **for-each loop**. It is useful when you want to process every element without working directly with indexes.
+
+Syntax:
+
+```java
+for (type var : array) {
+    // statements using var
+}
+```
+
+For each element in the array, `var` contains that element's value.
+
+For example, counting the number of `'a'` characters:
+
+```java
+char[] characters = {'a', 'b', 'c', 'a', 'b', 'c', 'a'};
+
+int counter = 0;
+
+for (char ch : characters) {
+    if (ch == 'a') {
+        counter++;
+    }
+}
+
+System.out.println(counter);
+```
+
+Output:
+
+```text
+3
+```
+
+The same operation using a normal `for` loop would be:
+
+```java
+for (int i = 0; i < characters.length; i++) {
+    if (characters[i] == 'a') {
+        counter++;
+    }
+}
+```
+
+
+### For-Each Loop Limitations
+
+The for-each loop is convenient, but it has some limitations:
+
+- You don't directly have access to the element's index.
+- You can't use it to move through the array by a custom step such as `i += 2`.
+- You cannot use the loop variable to modify the original array element for primitive values because the variable contains a copy of the value.
+
+For example:
+
+```java
+int[] numbers = {1, 2, 3};
+
+for (int number : numbers) {
+    number = 10;
+}
+```
+
+The array is still:
+
+```text
+[1, 2, 3]
+```
+
+For-each is therefore useful when you simply need to **read or process every element**. A traditional `for` loop is more appropriate when you need indexes or need to modify elements directly.
+
+
+
+### Passing Arrays to Methods
+
+Methods can accept arrays as parameters just like primitive types and other reference types.
+
+For example:
+
+```java
+public static void processArray(int[] array) {
+    // process the array
+}
+```
+
+An array is a **reference type**. When an array is passed to a method, Java passes a **copy of the reference** to the same array.
+
+This means changes made to the array's elements inside the method are visible outside the method.
+
+For example:
+
+```java
+public static void swapFirstAndLastElements(int[] nums) {
+    if (nums.length < 1) {
+        return;
+    }
+
+    int temp = nums[nums.length - 1];
+    nums[nums.length - 1] = nums[0];
+    nums[0] = temp;
+}
+```
+
+Calling the method:
+
+```java
+int[] numbers = {1, 2, 3, 4, 5};
+
+System.out.println(Arrays.toString(numbers));
+
+swapFirstAndLastElements(numbers);
+
+System.out.println(Arrays.toString(numbers));
+```
+
+Output:
+
+```text
+[1, 2, 3, 4, 5]
+[5, 2, 3, 4, 1]
+```
+
+The method receives a copy of the reference, but both the original variable and the parameter refer to the same array. Therefore, modifying the array elements inside the method affects the original array.
+
+
+### Varargs
+
+**Varargs** (variable-length arguments) allow a method to accept an arbitrary number of arguments of the same type.
+
+They are declared using three dots (`...`) after the type:
+
+```java
+public static void printNumberOfArguments(int... numbers) {
+    System.out.println(numbers.length);
+}
+```
+
+Inside the method, the varargs parameter can be used like a regular array.
+
+The method can be called with different numbers of arguments:
+
+```java
+printNumberOfArguments(1);
+printNumberOfArguments(1, 2);
+printNumberOfArguments(1, 2, 3);
+printNumberOfArguments(new int[] {});
+printNumberOfArguments(new int[] {1, 2});
+```
+
+Output:
+
+```text
+1
+2
+3
+0
+2
+```
+
+A varargs parameter allows multiple arguments to be passed to a method even though the method declaration contains only **one parameter**.
+
+For example:
+
+```java
+printNumberOfArguments(1, 2, 3);
+```
+
+Here, `1`, `2`, and `3` are **arguments**, while `numbers` is the single **parameter** that receives them as an array.
+
+
+### Varargs with Other Parameters
+
+If a method has multiple parameters, the varargs parameter must always be the **last parameter**.
+
+Incorrect:
+
+```java
+public static void method(double... varargs, int a) {
+    // ...
+}
+```
+
+Correct:
+
+```java
+public static void method(int a, double... varargs) {
+    // ...
+}
+```
+
+This is because the varargs parameter can accept a variable number of arguments, so Java needs it to appear at the end of the parameter list.
+
+
+
+### Command-Line Arguments
+
+The `main` method is the entry point of a Java program:
+
+```java
+public static void main(String[] args) {
+}
+```
+
+The `String[] args` parameter allows the program to receive **command-line arguments** when it starts.
+
+These arguments are stored in the `args` array.
+
+
+### Passing Command-Line Arguments
+
+Arguments can be provided when running the program:
+
+```bash
+java Main myFirstArg mySecondArg
+```
+
+They are stored in the `args` array:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(args[0]);
+        System.out.println(args[1]);
+    }
+}
+```
+
+Output:
+
+```text
+myFirstArg
+mySecondArg
+```
+
+The first argument is at index `0`, the second at index `1`, and so on.
+
+The program itself can be compiled with:
+
+```bash
+javac Main.java
+```
+
+
+### Arguments Containing Spaces
+
+Arguments are separated by spaces. If one argument contains multiple words, wrap it in double quotes:
+
+```bash
+java Main myFirstArg "multiple word arg"
+```
+
+Output:
+
+```text
+myFirstArg
+multiple word arg
+```
+
+Without the quotes, each word would be treated as a separate argument.
+
+
+### No Command-Line Arguments
+
+A program does not have to receive any arguments.
+
+However, trying to access an argument that was not provided causes an `ArrayIndexOutOfBoundsException`.
+
+For example:
+
+```java
+public static void main(String[] args) {
+    System.out.println(args[0]);
+}
+```
+
+Running:
+
+```bash
+java Main
+```
+
+causes an error because `args[0]` does not exist.
+
+
+### Argument Types
+
+Command-line arguments are always received as `String` values, even when they look like numbers.
+
+For example:
+
+```bash
+java Main 5
+```
+
+The value `5` is initially stored as the string `"5"`.
+
+If the program needs an integer, it must be converted explicitly:
+
+```java
+public static void main(String[] args) {
+    int i = Integer.parseInt(args[0]);
+
+    System.out.println("Provided number : " + i);
+}
+```
+
+Running:
+
+```bash
+java Main 5
+```
+
+Output:
+
+```text
+Provided number : 5
+```
+
+`Integer.parseInt()` converts the string `"5"` into the integer `5`.
+
+
+### The `main` Method and `String[] args`
+
+You can define another method named `main` without parameters:
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Method with arguments called!");
+    }
+
+    public static void main() {
+        System.out.println("No arguments method called!");
+    }
+}
+```
+
+The Java runtime still uses:
+
+```java
+public static void main(String[] args)
+```
+
+as the program's entry point.
+
+The `main()` method without parameters is simply another overloaded method. It is **not** used as the program entry point.
+
+Therefore, the standard entry point must use a `String[]` parameter.
+
+Even when no command-line arguments are provided, the program still receives an empty `String[]`.
+
+---
 
