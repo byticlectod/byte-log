@@ -86,6 +86,396 @@ Other important parts of the JVM for execution include:
 
 ---
 
+
+## Memory
+
+### Computer Memory
+
+Computer memory is storage space used to store data in the form of bits. Different types of memory have different characteristics and are suited to different purposes.
+
+The main characteristics of memory are:
+
+- **Capacity** — the amount of data the memory can store.
+- **Access time** — the time between requesting data and having it available.
+- **Cost per bit** — the cost of storing each bit of data.
+
+
+### Memory Hierarchy
+
+Computers use multiple types of memory because fast memory is expensive and usually has limited capacity, while slower memory is cheaper and can store more data.
+
+A simplified memory hierarchy is:
+
+```text
+Registers
+    ↓
+Cache
+    ↓
+Main Memory (RAM)
+    ↓
+Secondary Storage
+```
+
+Memory higher in the hierarchy is generally **faster, smaller, and more expensive per byte**.
+
+Memory lower in the hierarchy is generally **slower, larger, and cheaper per byte**.
+
+The hierarchy allows a computer to balance **speed, capacity, and cost**.
+
+
+### Principle of Locality
+
+The **Principle of Locality**, or **locality of reference**, describes the tendency of a processor to access the same or nearby memory locations repeatedly.
+
+There are two main types:
+
+- **Spatial locality** — recently accessed memory locations are likely to be followed by accesses to nearby locations.
+- **Temporal locality** — recently accessed data is likely to be accessed again soon.
+
+Arrays are a common example of spatial locality because nearby elements are often accessed one after another.
+
+Loops are a common example of temporal locality because the same variables and instructions can be accessed repeatedly.
+
+Memory systems use locality to keep frequently needed data in faster memory.
+
+
+### Volatile and Non-Volatile Memory
+
+Memory can be categorized based on whether it retains data when power is removed.
+
+**Volatile memory** requires power to retain its data. When power is removed, the stored data is lost.
+
+Example:
+
+```text
+RAM
+```
+
+**Non-volatile memory** retains data even when power is removed.
+
+Examples:
+
+```text
+HDD
+SSD
+CD/DVD
+```
+
+Volatile memory is mainly used for temporary working data, while non-volatile memory is used for persistent storage.
+
+
+### Registers
+
+**Registers** are small memory locations inside the CPU that directly store data needed by the processor.
+
+They can store things such as:
+
+- Instructions
+- Memory addresses
+- Data
+- Input/output characters
+
+Registers are the **fastest memory** in the computer system, but they have very limited capacity.
+
+Common types include:
+
+- **Address Registers** — store memory addresses.
+- **Data Registers** — store data.
+- **Condition Code Registers** — store condition or boolean values.
+- **Instruction Registers** — store instructions being executed.
+
+
+### RAM
+
+**Random Access Memory (RAM)** is volatile memory used to temporarily store data needed by the CPU.
+
+It is called *Random Access* because a particular memory address can be accessed directly.
+
+There are two main types of RAM:
+
+- **SRAM (Static RAM)**
+- **DRAM (Dynamic RAM)**
+
+**SRAM** uses multiple transistors to store a bit. It is faster but requires more space and is more expensive.
+
+**DRAM** uses a transistor and capacitor to store a bit. The capacitor gradually loses its stored energy, so DRAM needs to be periodically refreshed.
+
+Compared with SRAM, DRAM is:
+
+- More densely packed
+- Cheaper
+- Able to store more data
+- Slower
+
+DRAM is commonly used for main memory.
+
+
+### Cache Memory
+
+**Cache memory** is a fast memory component between the CPU and main memory. It stores frequently used data so the CPU can access it more quickly.
+
+Compared with registers, cache is:
+
+- Larger
+- Slower
+- Still very fast
+
+Cache commonly uses **SRAM**, which is faster but more expensive and less dense than DRAM.
+
+Cache is commonly divided into multiple levels:
+
+```text
+L1 → Smallest and fastest
+L2 → Larger and slower
+L3 → Larger and slower
+```
+
+The exact organization and sharing of cache levels depends on the processor.
+
+
+### Main Memory
+
+**Main memory**, also called **primary memory** or **internal memory**, stores data that is currently being used by the computer.
+
+For example, when a program such as a browser is running, its currently required data is stored in main memory.
+
+Main memory is a limited resource, so the operating system manages:
+
+- What data should be kept in memory
+- Where the data should be located
+- When data should be removed
+
+Main memory commonly uses **DRAM**, providing relatively large capacity at a lower cost than SRAM-based cache.
+
+
+### Secondary Memory
+
+**Secondary memory**, also called **secondary storage**, is non-volatile memory used to store data permanently.
+
+Examples include:
+
+- Hard Disk Drives (HDDs)
+- Solid-State Drives (SSDs)
+- CDs
+- DVDs
+
+The CPU does not directly work with data stored in secondary storage. Data required by a running program is loaded into main memory first.
+
+Different storage technologies have different:
+
+- Capacities
+- Speeds
+- Costs per byte
+
+
+### Stack and Heap Memory
+
+When a program runs, data can be stored in different areas of memory. Two important areas are **stack memory** and **heap memory**.
+
+The stack is mainly associated with function calls and local variables, while the heap is used for dynamically allocated data.
+
+
+### Stack Memory
+
+**Stack memory** is used during function or method calls. Memory is allocated for variables associated with the function call.
+
+When a function is called:
+
+```text
+Function called
+     ↓
+Stack memory allocated
+     ↓
+Function executes
+     ↓
+Function returns
+     ↓
+Stack memory released
+```
+
+Stack allocation is typically contiguous and automatically managed.
+
+If a program uses more stack memory than is available, a **StackOverflowError** can occur.
+
+
+### Heap Memory
+
+**Heap memory** is used for dynamically allocated data during program execution.
+
+In Java, objects are stored in the heap.
+
+For example:
+
+```java
+Object obj = new Object();
+```
+
+Here:
+
+- `obj` is a reference variable.
+- The object created by `new Object()` is stored in the heap.
+- The reference allows the program to access that object.
+
+```text
+Stack                    Heap
+
+obj ──────────────────→ Object
+(reference)              (object)
+```
+
+The heap is shared between threads and can contain objects that reference other objects.
+
+
+### Garbage Collection
+
+Java automatically manages heap memory using the **Garbage Collector (GC)**.
+
+When an object is no longer reachable from the program, it becomes eligible for garbage collection.
+
+For example:
+
+```java
+Object obj = new Object();
+
+obj = null;
+```
+
+If no other reference points to the object, it can eventually be reclaimed by the garbage collector.
+
+This automatic memory management is one of Java's important features.
+
+
+### Stack vs Heap
+
+| Stack | Heap |
+|---|---|
+| Mainly associated with method calls and local variables | Stores dynamically allocated objects |
+| Automatically managed with method execution | Managed by the JVM's garbage collector |
+| Typically faster | Generally more costly to manage |
+| Limited in size | More flexible in size |
+| Can cause `StackOverflowError` when exhausted | Can cause `OutOfMemoryError` when insufficient space is available |
+| Associated with individual threads | Shared between threads |
+
+A simple way to remember the difference:
+
+```text
+Stack → Method calls and local data
+Heap  → Objects and dynamically allocated data
+```
+
+
+### Metaspace
+
+Before Java 8, the JVM used **Permanent Generation (PermGen)** for certain class-related data.
+
+Starting with **Java 8**, PermGen was removed and replaced with **Metaspace**.
+
+Metaspace is located **outside the Java heap** and stores class metadata.
+
+It can grow dynamically according to the needs of the application.
+
+The old PermGen options are obsolete in Java 8 and later.
+
+
+### Java Object Structure
+
+A Java object in the heap typically contains:
+
+1. **Object header** — metadata about the object.
+2. **Instance fields** — data stored in the object's instance variables.
+3. **Padding** — additional space that may be added for memory alignment.
+
+The object header can contain information such as:
+
+- **Mark word** — information related to identity hash codes, locking, and garbage collection.
+- **Klass pointer** — information identifying the object's class.
+
+The exact object layout can vary depending on the JVM implementation, JVM options, and platform.
+
+
+### Compact Object Headers
+
+Java 24 introduced **Compact Object Headers** as an experimental feature designed to reduce object memory overhead on 64-bit platforms.
+
+It can reduce the object header size to **8 bytes**.
+
+The feature can be enabled with:
+
+```shell
+-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+```
+
+Because it is an experimental feature, its behavior may change in future Java releases.
+
+
+### Heap Settings
+
+The HotSpot JVM provides options for controlling heap size.
+
+**`-Xms`** sets the initial heap size:
+
+```shell
+java -Xms10m Main
+```
+
+**`-Xmx`** sets the maximum heap size:
+
+```shell
+java -Xmx1g Main
+```
+
+For example:
+
+```text
+-Xms10m → initial heap size = 10 MB
+-Xmx1g  → maximum heap size = 1 GB
+```
+
+Metaspace can also be configured using:
+
+```shell
+-XX:MetaspaceSize=10m
+-XX:MaxMetaspaceSize=1g
+```
+
+The old `-XX:PermSize` and `-XX:MaxPermSize` options are obsolete because PermGen was removed in Java 8.
+
+
+### Memory Leaks and OutOfMemoryError
+
+A **memory leak** occurs when unnecessary objects continue consuming memory instead of becoming available for reclamation.
+
+As the application continues using memory, the heap may eventually run out of space.
+
+This can result in:
+
+```text
+OutOfMemoryError
+```
+
+Setting a reasonable maximum heap size with `-Xmx` can limit how much memory an application is allowed to use.
+
+
+#### Key Points
+
+- Computer memory stores data as bits.
+- Memory can be **volatile** or **non-volatile**.
+- The memory hierarchy balances **speed, capacity, and cost**.
+- **Registers** are the fastest but have very limited capacity.
+- **Cache** stores frequently used data close to the CPU.
+- **RAM** is the main volatile working memory.
+- **Secondary storage** provides persistent, non-volatile storage.
+- **Stack memory** is mainly associated with method calls and local data.
+- **Heap memory** stores dynamically allocated Java objects.
+- The **Garbage Collector** reclaims unreachable heap objects.
+- **Metaspace** replaced PermGen starting with Java 8 and exists outside the heap.
+- `-Xms` controls the initial heap size.
+- `-Xmx` controls the maximum heap size.
+- Excessive heap usage can result in `OutOfMemoryError`.
+
+---
+
+
 # Concepts
 
 ## Getting Started
