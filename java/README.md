@@ -4911,3 +4911,598 @@ Even when no command-line arguments are provided, the program still receives an 
 
 ---
 
+
+## Characters & core String concepts
+
+### Character (`char`)
+
+The `char` type is used to represent a single character, such as a letter, digit, space, or symbol.
+
+Characters are written using **single quotes**:
+
+```java
+char lowerCaseLetter = 'a';
+char upperCaseLetter = 'Q';
+char number = '1';
+char space = ' ';
+char dollar = '$';
+```
+
+Java `char` values use the **Unicode (UTF-16)** format. Unicode assigns a unique numeric code to characters from different languages and symbol sets.
+
+
+### Unicode Character Codes
+
+A character can be initialized using its Unicode hexadecimal code with the `\u` prefix:
+
+```java
+char ch = '\u0040';
+
+System.out.println(ch);
+```
+
+Output:
+
+```text
+@
+```
+
+Although `\u0040` contains several characters in the source code, it represents **one character**.
+
+Some Unicode ranges for Latin letters are:
+
+```text
+'A' → '\u0041' to '\u005A'
+'a' → '\u0061' to '\u007A'
+```
+
+The `char` type ranges from:
+
+```text
+'\u0000' → '\uffff'
+```
+
+A `char` can also be initialized using a positive integer:
+
+```java
+char ch = 64;
+
+System.out.println(ch);
+```
+
+Output:
+
+```text
+@
+```
+
+The integer `64` corresponds to the Unicode value `\u0040`.
+
+A `char` can therefore be treated as an unsigned integer value from `0` to `65535`.
+
+
+### Character Arithmetic
+
+Characters can be used with integer arithmetic. Adding or subtracting an integer changes the character according to its Unicode value.
+
+```java
+char ch = 'b';
+
+ch += 1;  // 'c'
+ch -= 2;  // 'a'
+```
+
+Character arithmetic operates on the **numeric codes** of the characters.
+
+Increment and decrement operators can also be used:
+
+```java
+char ch = 'A';
+
+ch += 10;
+
+System.out.println(ch);   // K
+System.out.println(++ch); // L
+System.out.println(++ch); // M
+System.out.println(--ch); // L
+```
+
+`++` moves to the next Unicode value, while `--` moves to the previous one.
+
+
+### Escape Sequences
+
+**Escape sequences** are special character representations that begin with a backslash (`\`).
+
+Common escape sequences include:
+
+| Escape sequence | Meaning |
+|---|---|
+| `'\n'` | Newline |
+| `'\t'` | Tab |
+| `'\r'` | Carriage return |
+| `'\\'` | Backslash |
+| `'\''` | Single quote |
+| `'\"'` | Double quote |
+
+For example:
+
+```java
+System.out.print('\t');
+System.out.print('a');
+System.out.print('\n');
+System.out.print('c');
+```
+
+Output:
+
+```text
+    a
+c
+```
+
+Escape sequences allow special characters such as newlines, tabs, and quotation marks to be represented inside Java character and string literals.
+
+
+### Mutability and Immutability
+
+**Mutability** means the ability of an object to change its state after it has been created.
+
+- **Mutable objects** can be changed after creation.
+- **Immutable objects** cannot be changed after creation.
+
+An immutable object always represents the same value. If you need a different value, you must create a new object.
+
+A mutable object can change its contained values without creating a new object.
+
+For example, Java `String` objects are immutable, while `StringBuilder` and `StringBuffer` are mutable.
+
+
+### Custom Objects and Immutability
+
+Objects created from custom classes are generally mutable. However, making them immutable can provide several benefits:
+
+- Thread-safe sharing
+- Easier testing
+- Potentially better security
+
+Immutable objects can be safely shared between multiple threads without additional protection because their state cannot be changed.
+
+**Weak immutability** means some fields of an object are immutable while others are mutable.
+
+**Strong immutability** means all fields of an object are immutable.
+
+To make a custom object immutable, you generally need to prevent its fields from being changed or reassigned after creation. This can be done by:
+
+- Making fields read-only or constant
+- Preventing external access to fields using access modifiers
+- Preventing setter methods from changing field values
+- Making methods that attempt to change state throw exceptions
+
+The exact way to implement immutability depends on the programming language.
+
+
+### The `String` Type
+
+`String` is a **reference type** used to represent text in Java.
+
+```java
+String message = "Hello, Java";
+```
+
+Strings are **immutable**, meaning their contents cannot be changed after the object is created.
+
+A string can contain any number of characters, including zero:
+
+```java
+String empty = "";
+String text = "Hello";
+String nullString = null;
+```
+
+A `String` can also be created using `new`:
+
+```java
+String str = new String("my-string");
+```
+
+However, string literals such as `"my-string"` are commonly used.
+
+
+### String Length and Characters
+
+The `length()` method returns the number of characters in a string.
+
+The `charAt(index)` method returns the character at a specific index. String indexes start from `0`.
+
+```java
+String s = "Hi, all";
+
+int len = s.length();                  // 7
+char first = s.charAt(0);              // 'H'
+char fifth = s.charAt(4);              // 'a'
+char last = s.charAt(s.length() - 1);  // 'l'
+```
+
+Because strings are immutable, individual characters cannot be changed.
+
+
+### Useful String Methods
+
+Java provides many methods for processing strings:
+
+```java
+String text = "The simple text string";
+
+text.isEmpty();                 // checks whether the string is empty
+text.toUpperCase();             // converts to uppercase
+text.toLowerCase();             // converts to lowercase
+text.startsWith("The");         // checks the prefix
+text.endsWith("string");        // checks the suffix
+text.contains("simple");       // checks whether text exists
+text.substring(4, 10);          // extracts characters
+text.replace(" ", "");          // replaces characters/text
+text.replaceAll(" ", "_");      // replaces using a regular expression
+text.trim();                    // removes leading and trailing whitespace
+```
+
+Most of these methods return a **new string** rather than changing the original string because `String` is immutable.
+
+
+### String Exceptions
+
+Two common exceptions when working with strings are:
+
+**`NullPointerException`** — occurs when calling a method on a `null` string.
+
+```java
+String s = null;
+int length = s.length(); // NullPointerException
+```
+
+**`StringIndexOutOfBoundsException`** — occurs when trying to access a character outside the valid index range.
+
+```java
+String s = "ab";
+char c = s.charAt(2); // StringIndexOutOfBoundsException
+```
+
+For `"ab"`, valid indexes are `0` and `1`.
+
+
+### String Concatenation
+
+Strings can be combined using the `+` operator or the `concat()` method.
+
+```java
+String firstName = "John";
+String lastName = "Smith";
+
+String fullName1 = firstName + " " + lastName;
+String fullName2 = firstName.concat(" ").concat(lastName);
+```
+
+Both produce:
+
+```text
+John Smith
+```
+
+Because strings are immutable, concatenating strings creates a new string.
+
+
+### Strings and Other Data Types
+
+Values of other types can be concatenated with strings. They are automatically converted to their string representation.
+
+```java
+String str = "str" + 10 + false;
+```
+
+Result:
+
+```text
+str10false
+```
+
+The order of operations matters.
+
+```java
+String shortString = "str";
+int number = 100;
+
+String result1 = shortString + number + 50; // "str10050"
+String result2 = number + 50 + shortString; // "150str"
+```
+
+In `result1`, concatenation starts with the string.
+
+In `result2`, `100 + 50` is calculated first because both operands are integers.
+
+
+### Comparing Strings
+
+`String` is a reference type, so `==` compares references rather than the actual string contents.
+
+Use `equals()` to compare the contents of strings.
+
+Use `equalsIgnoreCase()` when the comparison should ignore letter case.
+
+```java
+String first = "first";
+String anotherFirst = "first";
+String second = "second";
+String upperSecond = "SECOND";
+
+first.equals(anotherFirst);              // true
+first.equals(second);                    // false
+second.equals(upperSecond);              // false
+second.equalsIgnoreCase(upperSecond);    // true
+```
+
+For comparing string content, use **`equals()`** or **`equalsIgnoreCase()`**, not `==`.
+
+
+### `printf()` Method
+
+`System.out.printf()` is used when you need formatted console output.
+
+It uses **format specifiers** such as `%d`, `%s`, `%f`, and `%c` to determine how values should be displayed.
+
+```java
+System.out.printf("My Name is %s. I was born in %d", "Mike", 1998);
+```
+
+Here:
+
+- `%s` is replaced by `"Mike"`.
+- `%d` is replaced by `1998`.
+- The values after the format string are the arguments used for formatting.
+
+
+### Common Format Specifiers
+
+| Specifier | Data type |
+|---|---|
+| `%d` | `int`, `short`, `byte`, `long` |
+| `%c` | `char` |
+| `%f` | `double`, `float` |
+| `%s` | `String` |
+
+For example:
+
+```java
+System.out.printf("Integer: %d", 15000);
+System.out.printf("Character: %c", 'H');
+System.out.printf("String: %s", "Hydrogen");
+System.out.printf("Decimal: %f", 15.23);
+```
+
+Multiple values can be formatted using multiple specifiers:
+
+```java
+System.out.printf("The sum of %d and %d is %d", 15, 40, 55);
+```
+
+Output:
+
+```text
+The sum of 15 and 40 is 55
+```
+
+
+### Formatting Floating-Point Numbers
+
+`%f` displays floating-point numbers.
+
+```java
+System.out.printf("Number: %f", 15.23);
+```
+
+Output:
+
+```text
+Number: 15.230000
+```
+
+You can control the number of digits after the decimal point using precision:
+
+```java
+System.out.printf("Number: %.2f", 15.23);
+```
+
+Output:
+
+```text
+Number: 15.23
+```
+
+`%.2f` means that **2 digits** should appear after the decimal point.
+
+
+### `String.format()`
+
+`String.format()` works similarly to `printf()`, but instead of printing the formatted result, it **returns a String**.
+
+```java
+int age = 22;
+
+String str = String.format("My age is %d", age);
+
+System.out.println(str);
+```
+
+Output:
+
+```text
+My age is 22
+```
+
+It can format multiple data types:
+
+```java
+int age = 22;
+char initial = 'M';
+String surname = "Anderson";
+double height = 1.72;
+
+String details = String.format(
+        "My name is %c. %s.%nMy age is %d.%nMy height is %.2f.",
+        initial, surname, age, height);
+
+System.out.println(details);
+```
+
+Output:
+
+```text
+My name is M. Anderson.
+My age is 22.
+My height is 1.72.
+```
+
+`%n` creates a new line.
+
+
+### `String.formatted()`
+
+`String` also provides the `formatted()` instance method, which can be used similarly to `String.format()`.
+
+```java
+String details = "My name is %c. %s.%nMy age is %d.%nMy height is %.2f."
+        .formatted(initial, surname, age, height);
+```
+
+It produces the same result as `String.format()`.
+
+The main difference is that:
+
+- `String.format()` is a **static method**.
+- `formatted()` is an **instance method**.
+
+
+### The `final` Keyword
+
+The `final` keyword is used to declare a variable whose value cannot be changed after it has been assigned.
+
+```java
+final double PI = 3.1415;
+final String HELLO_MSG = "Hello";
+
+System.out.println(PI);
+System.out.println(HELLO_MSG);
+```
+
+Trying to change a `final` variable causes a compilation error:
+
+```java
+final double PI = 3.1415;
+PI = 3.1416; // error
+```
+
+A common naming convention is to write constants in **uppercase letters**, using underscores between words:
+
+```java
+final double PI_VALUE = 3.1415;
+final String HELLO_MSG = "Hello";
+```
+
+
+### Initializing `final` Variables
+
+A `final` variable must be assigned a value before it is accessed.
+
+```java
+final boolean FALSE;
+
+System.out.println(FALSE); // error
+```
+
+Assign a value before using it:
+
+```java
+final boolean FALSE;
+
+FALSE = false;
+
+System.out.println(FALSE); // works
+```
+
+Once assigned, the value cannot be reassigned.
+
+A `final` value can still be copied into a regular variable:
+
+```java
+final int count = 10;
+
+int cnt = count;
+cnt = 20; // works
+```
+
+Changing `cnt` does not affect the `final` variable `count`.
+
+
+### Final Reference Variables
+
+`final` can also be used with reference variables.
+
+For a reference variable, `final` prevents the **reference from being reassigned**. It does not make the referenced object immutable.
+
+```java
+final StringBuilder builder = new StringBuilder();
+
+builder = new StringBuilder(); // error
+```
+
+However, the object itself can still be modified:
+
+```java
+final StringBuilder builder = new StringBuilder();
+
+builder.append("Hello!");
+
+System.out.println(builder.toString());
+```
+
+Output:
+
+```text
+Hello!
+```
+
+Here, the reference cannot point to another `StringBuilder`, but the object it refers to can still change because `StringBuilder` is mutable.
+
+
+### `final` with `var`
+
+Since Java 11, `final` can be used together with `var` for constant variables.
+
+```java
+final var FINAL_VAR = 10;      // int
+final var MSG = "Hello!";      // String
+```
+
+The compiler infers the type while `final` prevents reassignment.
+
+
+### When to Use `final`
+
+Using `final` can help reduce the number of mutable variables in a program, which may reduce accidental changes and errors.
+
+For example:
+
+```java
+final Scanner scanner = new Scanner(System.in);
+final int a = scanner.nextInt();
+final int b = scanner.nextInt();
+
+System.out.println(a + b);
+```
+
+Some programmers use `final` for variables that should not change, while others avoid using it everywhere because excessive use can make code less readable.
+
+The choice is often standardized according to the coding style of a project.
+
+---
+
+
