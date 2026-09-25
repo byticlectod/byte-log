@@ -6616,3 +6616,1244 @@ The exact Java version should match the version supported by the project's Maven
 
 
 ---
+
+
+## Object-Oriented Programming
+
+**Object-oriented programming (OOP)** is a programming paradigm based on **objects** that interact with each other to perform program functions.
+
+An object has:
+
+- **State** — represented by its fields
+- **Behavior** — represented by its methods
+
+
+### Four Principles of OOP
+
+The four basic principles of OOP are:
+
+- **Encapsulation**
+- **Abstraction**
+- **Inheritance**
+- **Polymorphism**
+
+**Encapsulation** means bundling data and the methods that operate on that data into a single unit. It also allows an object to hide its internal implementation.
+
+**Abstraction** means providing a simplified representation of an object's functionality while hiding unnecessary implementation details.
+
+**Inheritance** defines parent-child relationships between classes. It allows common logic to be reused while adding unique features to derived classes.
+
+**Polymorphism** means "having many forms." It allows different implementations of the same method or interface.
+
+For example, different types of publications can share common properties such as a headline, text, and date while implementing their own specific behavior.
+
+
+### Objects
+
+An **object** is an individual entity in OOP that has characteristics and behavior.
+
+An object's characteristics are its **attributes**, which represent its state or data.
+
+Its **methods** represent its behavior.
+
+For example, a plane can have:
+
+- Name
+- Passenger capacity
+- Standard speed
+- Current coordinates
+
+It can also have behavior such as transferring passengers between two locations.
+
+When the plane moves, its current coordinates change, demonstrating how an object's behavior can change its state.
+
+
+### Classes
+
+A **class** is a template or blueprint that describes the common structure of similar objects.
+
+A class defines:
+
+- Fields
+- Methods
+
+An **object is an instance of a class**.
+
+For example, a `Building` class could define:
+
+```text
+Number of floors
+Area
+Year of construction
+```
+
+Different objects created from this class can have different values:
+
+```text
+Building 1:
+floors = 4
+area = 2400.16
+year = 1966
+
+Building 2:
+floors = 6
+area = 3200.54
+year = 2001
+```
+
+The class defines what information a building object has, while each object contains its own values.
+
+
+### Class as a Blueprint
+
+A class can be thought of as a **blueprint**, while an object is an individual instance created from that blueprint.
+
+For example:
+
+```text
+Class: Plane
+
+Fields:
+- name
+- passenger capacity
+- speed
+- coordinates
+
+Method:
+- transfer passengers
+```
+
+Individual plane objects can have different field values while sharing the same structure and behavior defined by the class.
+
+
+### Encapsulation and Classes
+
+A class can be treated as a **black box**.
+
+Users of the class interact with its available fields and methods without needing to understand its internal implementation.
+
+This is the idea behind **encapsulation**: the internal implementation can be hidden while providing an interface for interacting with the object.
+
+
+### Objects and Classes
+
+OOP programs consist of objects that interact with each other.
+
+Objects generally combine **state and behavior**, although special cases can exist where an object may have little or no state or behavior.
+
+Different programming languages implement OOP concepts in different ways, but the fundamental ideas remain similar.
+
+
+### OOP in Programming
+
+OOP is used in many programming languages, including:
+
+- C++
+- C#
+- Java
+- Kotlin
+- Python
+- Ruby
+
+Understanding classes, objects, encapsulation, abstraction, inheritance, and polymorphism is fundamental to working with object-oriented programs.
+
+
+### Custom Classes
+
+In real programs, standard Java classes are often used as building blocks. However, programmers frequently need to create **custom classes** that represent specific objects or concepts in their program's domain.
+
+A class is declared using the `class` keyword followed by the class name.
+
+```java
+class Nothing {
+    // empty body
+}
+```
+
+A class body can contain:
+
+- **Fields** — store data
+- **Methods** — define behavior
+- **Constructors** — allow objects to be created and initialized
+
+A class does not necessarily need to contain fields or methods.
+
+The source code of a class is usually placed in a `.java` file. A file commonly contains one class with the same name as the file, although a file can contain multiple classes.
+
+
+### Fields
+
+A **field** is a variable that stores data inside a class.
+
+Fields can have primitive types such as `int`, `float`, and `boolean`, or reference types such as other classes.
+
+For example:
+
+```java
+class Patient {
+
+    String name;
+    int age;
+    float height;
+}
+```
+
+The `Patient` class has three fields:
+
+- `name` stores the patient's name.
+- `age` stores the patient's age.
+- `height` stores the patient's height.
+
+All `Patient` objects have the same fields, but each object can have different values.
+
+
+### Creating Objects
+
+An **instance** is an object created from a class.
+
+The `new` keyword is used to create an object:
+
+```java
+Patient patient = new Patient();
+```
+
+When an object is created, its fields receive their corresponding **default values** if no values have been explicitly assigned.
+
+For example:
+
+```java
+System.out.println(patient.name); // null
+System.out.println(patient.age);  // 0
+```
+
+For the `Patient` class:
+
+- `String` → `null`
+- `int` → `0`
+- `float` → `0.0`
+
+
+### Creating Multiple Objects
+
+A class can be used to create multiple objects. Each object has its own field values.
+
+```java
+public class PatientDemo {
+
+    public static void main(String[] args) {
+
+        Patient john = new Patient();
+
+        john.name = "John";
+        john.age = 30;
+        john.height = 180;
+
+        System.out.println(john.name + " " + john.age + " " + john.height);
+
+        Patient alice = new Patient();
+
+        alice.name = "Alice";
+        alice.age = 22;
+        alice.height = 165;
+
+        System.out.println(alice.name + " " + alice.age + " " + alice.height);
+    }
+}
+
+class Patient {
+
+    String name;
+    int age;
+    float height;
+}
+```
+
+Output:
+
+```text
+John 30 180.0
+Alice 22 165.0
+```
+
+Both `john` and `alice` are objects of the `Patient` class, but their field values are different.
+
+
+### Multiple Classes in One File
+
+A `.java` file can contain multiple classes.
+
+However, if multiple classes are declared in the same file, only **one class can be `public`**, and the filename must match that public class.
+
+In the example above:
+
+```text
+PatientDemo.java
+```
+
+matches the public class:
+
+```java
+public class PatientDemo
+```
+
+while `Patient` is not declared as `public`.
+
+## Packages
+
+Packages help organize classes in large Java projects. They group related classes together, make classes easier to find, help avoid conflicting class names, and can control access to classes and members. 
+
+
+### Package Naming
+
+Package names are conventionally written in **lowercase**.
+
+Examples:
+
+```text
+model
+collection
+utils
+```
+
+A package can contain other packages, forming a structure similar to directories in a file system. 
+
+A class's full name includes its package name. For example:
+
+```text
+org.company.webapp.data.User
+```
+
+This is called the **fully qualified class name**.
+
+You can get it with:
+
+```java
+System.out.println(User.class.getName());
+```
+
+
+### Declaring a Package
+
+A class can be placed inside a package using the `package` keyword at the top of the file.
+
+```java
+package org.company.webapp.data;
+
+public class User {
+}
+```
+
+The package declaration must appear before the class definition. 
+
+
+### Avoiding Conflicting Class Names
+
+Different packages can contain classes with the same name.
+
+For example:
+
+```text
+com.example.User
+org.company.User
+```
+
+Although both classes are named `User`, their full names are different.
+
+To reduce the possibility of package-name conflicts, package hierarchies are commonly started with a reversed domain name.
+
+Examples:
+
+```text
+org.company
+org.nvidia
+net.labs
+```
+
+
+
+### Importing Classes
+
+If two classes are in different packages, you can use an `import` statement to use one class inside another.
+
+For example:
+
+```java
+package org.nvidia.java.packages.theory.p1;
+
+import org.nvidia.java.packages.theory.p2.B;
+
+public class A {
+
+    public static void method() {
+        B b = new B();
+    }
+}
+```
+
+The `package` declaration must come **before** all `import` statements.
+
+```java
+package some.package;
+
+import another.package.SomeClass;
+```
+
+
+
+### Importing All Classes
+
+You can use `*` to import all classes from a package:
+
+```java
+import org.nvidia.java.packages.theory.p3.*;
+```
+
+However, wildcard imports should not be used too often.
+
+
+### Classes in the Same Package
+
+Classes that belong to the same package do not need to import each other.
+
+```text
+package myapp;
+
+ClassA
+ClassB
+```
+
+`ClassA` can use `ClassB` directly by its short name.
+
+Classes in different packages require an import or a fully qualified class name. 
+
+
+### Using a Fully Qualified Class Name
+
+A class from another package can be used without an `import` statement by writing its complete package path.
+
+```java
+java.util.Scanner scanner = new java.util.Scanner(System.in);
+java.util.Date now = new java.util.Date();
+```
+
+This uses the **fully qualified class name** directly. 
+
+
+### Importing Standard Classes
+
+There is no special difference between importing standard Java classes and custom classes.
+
+For example:
+
+```java
+import java.util.Scanner;
+```
+
+After importing it, you can create a `Scanner` object normally:
+
+```java
+Scanner scanner = new Scanner(System.in);
+```
+
+The `java.lang` package is automatically imported. It contains commonly used classes such as:
+
+```text
+String
+System
+Long
+Integer
+NullPointerException
+```
+
+
+
+### Static Imports
+
+A **static import** allows static methods and fields to be used without writing the class name before them.
+
+For example:
+
+```java
+import static java.util.Arrays.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int[] numbers = {10, 4, 5, 47, 5, 12};
+
+        sort(numbers);
+
+        int[] copy = copyOf(numbers, numbers.length);
+    }
+}
+```
+
+Without the static import, you would write:
+
+```java
+Arrays.sort(numbers);
+Arrays.copyOf(numbers, numbers.length);
+```
+
+With the static import, you can call:
+
+```java
+sort(numbers);
+copyOf(numbers, numbers.length);
+```
+
+
+
+### Default Package
+
+If a class has no `package` declaration, it belongs to the **default package**.
+
+```java
+// no package declaration
+
+public class Person {
+    String firstName;
+    String lastName;
+}
+```
+
+Classes in the default package cannot be imported into classes that belong to named packages. 
+
+The default package is suitable for simple educational programs, but it should not be used for real applications.
+
+For larger projects, use named packages to keep the code organized. 
+
+
+### Package Structure
+
+Packages help organize large Java applications by grouping related classes and creating a clear structure.
+
+They provide:
+
+- Organization of related classes
+- Protection against conflicting class names
+- Access control
+- A clear project structure
+- Better maintainability in large projects
+
+Packages are especially important in large OOP projects containing many classes. 
+
+
+### Java Modules
+
+Java 9 introduced the **Java Platform Module System (JPMS)** to help organize large applications, manage dependencies, and control access to code.
+
+Modules group related packages into larger units and allow developers to specify which parts of their code are accessible to other modules.
+
+
+### Packages vs Modules
+
+**Packages** group related classes and help avoid naming conflicts.
+
+**Modules** group related packages that contribute to a particular functionality.
+
+| Packages | Modules |
+|---|---|
+| Group related classes | Group related packages |
+| Organize source code | Organize larger application components |
+| Cannot be deployed independently | Can be packaged as modular application components |
+
+Java packages existed before Java 9, while the module system was introduced in Java 9.
+
+
+### Application Size
+
+The Java Platform API is divided into separate modules instead of one large JAR file.
+
+An application can include the modules it needs, potentially reducing its size. This is useful for resource-limited devices such as embedded systems and mobile devices.
+
+Java applications can also be packaged with a runtime so that users do not need to install Java separately.
+
+
+### Encapsulation
+
+Modules provide stronger control over which parts of a program are accessible to other developers.
+
+A module can expose a public interface while keeping its implementation hidden.
+
+This allows developers to modify or rewrite internal implementation details without breaking other modules, as long as the exposed interface continues to work as expected.
+
+Modules also restrict access through reflection according to the module's configuration.
+
+
+### Module Descriptor
+
+Every named Java module contains a `module-info.java` file in its module's root source directory.
+
+It specifies the module's name, dependencies, exported packages, and reflective access.
+
+Example:
+
+```java
+module com.myCompany.myModuleName {
+
+}
+```
+
+The module name should be unique. Using a reversed domain name helps avoid naming conflicts.
+
+
+### Module Dependencies with requires
+
+The `requires` keyword declares a dependency on another module.
+
+For example, if a module uses JavaFX graphics:
+
+```java
+module com.myCompany.myModuleName {
+    requires javafx.graphics;
+}
+```
+
+This declares that the module depends on `javafx.graphics`.
+
+The module system checks dependencies when the application starts.
+
+
+### Exporting Packages
+
+The `exports` keyword makes a specific package available to other modules.
+
+```java
+module com.myCompany.myModuleName {
+    exports com.myCompany.myModuleName;
+}
+```
+
+Only the specified package is exported. Its subpackages are not automatically exported.
+
+For example, exporting:
+
+```text
+com.myCompany.myModuleName
+```
+
+does not export:
+
+```text
+com.myCompany.myModuleName.util
+```
+
+The subpackage must be exported separately if other modules need access to it.
+
+
+### Creating a Module Dependency
+
+Suppose we have a utility module and a main application module.
+
+The utility module exports only the package that other modules should use.
+
+```java
+module com.myCompany.superUtilities {
+    exports com.myCompany.superUtilities.baseUtilities;
+}
+```
+
+The exported package contains the `SuperOptimizer` class:
+
+```java
+package com.myCompany.superUtilities.baseUtilities;
+
+public class SuperOptimizer {
+
+}
+```
+
+The main application module declares its dependency:
+
+```java
+module com.myCompany.worldChanger {
+    requires com.myCompany.superUtilities;
+    exports com.myCompany.worldChanger;
+}
+```
+
+The `requires` statement makes the utility module a dependency, while `exports` makes the main module's specified package available to other modules.
+
+
+### Using a Class from Another Module
+
+Once the dependency is declared and the required package is exported, the application can import and use the class.
+
+```java
+package com.myCompany.worldChanger;
+
+import com.myCompany.superUtilities.baseUtilities.SuperOptimizer;
+
+public class WorldChangerImpl {
+
+    public static void main(String[] args) {
+
+        SuperOptimizer so = new SuperOptimizer();
+
+        // rest of code
+    }
+}
+```
+
+A module dependency is declared at the module level, while individual classes are imported using their fully qualified class names.
+
+
+#### Key Takeaways
+
+- Packages organize related classes; modules organize related packages.
+- Java modules were introduced in Java 9.
+- `module-info.java` describes a named module.
+- `requires` declares module dependencies.
+- `exports` makes specific packages available to other modules.
+- Subpackages must be exported explicitly.
+- Modules improve encapsulation and dependency management and can help reduce application size.
+
+
+### Objects and Reference Types
+
+Object-oriented programming (OOP) is based on interacting objects. Each object has its own state and behavior and is an instance of a class.
+
+- **State** is stored in fields.
+- **Behavior** is defined by methods.
+- **Class** defines common properties and behavior for its objects.
+
+In Java, standard library classes such as `String` and `Date`, as well as programmer-defined classes, are reference types.
+
+Reference variables store references to objects rather than the objects' actual values.
+
+
+### Creating Objects
+
+The `new` keyword creates an object of a particular class.
+
+```java
+String str = new String("hello");
+```
+
+The variable `str` stores a reference to the `String` object.
+
+Similarly, we can create an object of a custom class:
+
+```java
+class Patient {
+    String name;
+    int age;
+}
+
+Patient patient = new Patient();
+```
+
+Both `String` and `Patient` are reference types, even though one is a standard Java class and the other is a custom class.
+
+
+### Immutability of Objects
+
+**Immutability** means that an object's state cannot be changed after it is created. If a different value is needed, a new object must be created.
+
+`String` is a common example of an immutable class. String operations that produce a modified string return a new string rather than changing the original.
+
+```java
+String str = "hello";
+str = str.toUpperCase();
+
+System.out.println(str); // HELLO
+```
+
+The original string object is not modified. The variable `str` now refers to the new string.
+
+The `Patient` class, however, is mutable because its fields can be changed.
+
+```java
+Patient patient = new Patient();
+
+patient.name = "Mary";
+patient.name = "Alice";
+```
+
+The same object can have different field values over time.
+
+
+### Sharing References
+
+More than one variable can refer to the same object.
+
+```java
+Patient patient = new Patient();
+
+patient.name = "Mary";
+patient.age = 24;
+
+System.out.println(patient.name + " " + patient.age);
+// Mary 24
+
+Patient p = patient;
+
+System.out.println(p.name + " " + p.age);
+// Mary 24
+```
+
+The assignment:
+
+```java
+Patient p = patient;
+```
+
+copies the reference, not the object. Both variables refer to the same object in memory.
+
+Therefore, modifying the object through one reference is visible through the other reference.
+
+```java
+patient.age = 25;
+
+System.out.println(p.age); // 25
+```
+
+
+### Independent Objects
+
+Two objects of the same class can have identical field values while remaining independent objects.
+
+```java
+Patient p1 = new Patient();
+Patient p2 = new Patient();
+
+p1.name = "Mary";
+p2.name = "Mary";
+```
+
+Both objects contain the same name, but they are separate objects with different references.
+
+Changing a field of `p1` does not change the corresponding field of `p2`.
+
+
+### Nullability
+
+A variable of a reference type can contain `null`, which means it does not currently refer to an object.
+
+```java
+Patient patient = null;
+```
+
+Attempting to access a field or method through a `null` reference causes a `NullPointerException`.
+
+```java
+Patient patient = null;
+
+System.out.println(patient.name); // NullPointerException
+```
+
+This happens because there is no object for the reference to access.
+
+---
+
+#### Key Takeaways
+
+- Custom classes and standard library classes are both reference types.
+- `new` creates an object and returns a reference to it.
+- Assigning one reference variable to another copies the reference, not the object.
+- Multiple variables can refer to the same object.
+- Two separately created objects can contain identical data but remain independent.
+- Mutable objects can change their state after creation.
+- Immutable objects cannot change their state after creation.
+- A reference can contain `null`; accessing an object through a null reference causes a `NullPointerException`.
+
+
+### Constructors
+
+A **constructor** is a special part of a class used to initialize a new object when it is created with the `new` keyword.
+
+A constructor:
+
+- Has the same name as its class.
+- Has no return type, not even `void`.
+- Can accept parameters to initialize fields with specific values.
+
+```java
+class Patient {
+
+    String name;
+    int age;
+    float height;
+
+    public Patient(String name, int age, float height) {
+        this.name = name;
+        this.age = age;
+        this.height = height;
+    }
+}
+```
+
+- `Patient(...)` is the constructor.
+- The parameters receive values when an object is created.
+- `this.name`, `this.age`, and `this.height` refer to the object's fields.
+- The constructor assigns the parameter values to those fields.
+
+Creating objects:
+
+```java
+Patient patient1 = new Patient("Heinrich", 40, 182.0f);
+Patient patient2 = new Patient("Mary", 33, 171.5f);
+```
+
+Each object has its own field values. `patient1` and `patient2` are separate instances of the same class.
+
+
+### The `this` Keyword
+
+The `this` keyword is a reference to the current object. It is commonly used when a field and a constructor or method parameter have the same name.
+
+```java
+public Patient(String name, int age, float height) {
+    this.name = name;
+    this.age = age;
+    this.height = height;
+}
+```
+
+- `this.name` refers to the instance field.
+- `name` refers to the constructor parameter.
+
+For example, `this.name = name;` assigns the parameter's value to the current object's `name` field.
+
+Without `this`, `name = name;` would simply assign the parameter to itself rather than initialize the field.
+
+
+### Default and No-Argument Constructors
+
+If a class declares no constructors, the Java compiler automatically provides a **default no-argument constructor**.
+
+```java
+class Patient {
+    String name;
+    int age;
+    float height;
+}
+```
+
+An object can be created without passing arguments:
+
+```java
+Patient patient = new Patient();
+```
+
+The fields receive their default values:
+
+- `name` → `null`
+- `age` → `0`
+- `height` → `0.0`
+
+If you define any constructor yourself, the compiler does not automatically provide the default no-argument constructor.
+
+
+### Custom No-Argument Constructor
+
+A no-argument constructor can also be written explicitly to assign useful default values to fields.
+
+```java
+class Patient {
+
+    String name;
+    int age;
+    float height;
+
+    public Patient() {
+        this.name = "Unknown";
+    }
+}
+```
+
+Now, creating a `Patient` using `new Patient()` sets `name` to `"Unknown"` instead of `null`. The other fields retain their default values.
+
+
+#### Key Takeaways
+
+- Constructors initialize objects when they are created using `new`.
+- A constructor has the same name as its class and no return type.
+- Parameterized constructors initialize fields with supplied values.
+- `this` refers to the current object and distinguishes instance fields from parameters.
+- The compiler provides a default no-argument constructor only when no constructor is explicitly declared.
+- A custom no-argument constructor can initialize fields with useful default values.
+
+
+### Instance and Static Methods
+
+Java methods are divided into two types: **static methods** and **instance methods**.
+
+- Static methods belong to the class as a whole.
+- Instance methods belong to objects (instances) of the class.
+
+A method declared with the `static` keyword is static. Without `static`, it is an instance method.
+
+```java
+class Human {
+    String name;
+    int age;
+
+    public static void printStatic() {
+        System.out.println("It's a static method");
+    }
+
+    public void printInstance() {
+        System.out.println("It's an instance method");
+    }
+}
+```
+
+
+### Calling Static and Instance Methods
+
+**Static methods** can be called directly using the class name without creating an object.
+
+```java
+Human.printStatic();
+```
+
+**Instance methods** require an object to be created first.
+
+```java
+Human peter = new Human();
+peter.printInstance();
+
+Human alice = new Human();
+alice.printInstance();
+```
+
+Both objects can call the same instance method, but the method can access the fields of the particular object.
+
+
+### Instance Methods and the `this` Keyword
+
+Instance methods can access and manipulate the fields of the object on which they are called.
+
+The `this` keyword refers to the current object.
+
+```java
+class Human {
+    String name;
+    int age;
+
+    public static void averageWorking() {
+        System.out.println("An average human works 40 hours per week.");
+    }
+
+    public void work() {
+        System.out.println(this.name + " loves working!");
+    }
+
+    public void workTogetherWith(Human other) {
+        System.out.println(this.name + " loves working with " + other.name + '!');
+    }
+}
+```
+
+Example:
+
+```java
+Human.averageWorking();
+
+Human peter = new Human();
+peter.name = "Peter";
+peter.work();
+
+Human alice = new Human();
+alice.name = "Alice";
+alice.work();
+
+peter.workTogetherWith(alice);
+```
+
+Output:
+
+```text
+An average human works 40 hours per week.
+Peter loves working!
+Alice loves working!
+Peter loves working with Alice!
+```
+
+- `this.name` refers to the current object's `name`.
+- `other.name` refers to the `name` field of the object passed as an argument.
+- `this` is optional when accessing instance fields without ambiguity, but using it can make the code clearer.
+
+
+### Instance Methods with Parameters and Return Values
+
+Instance methods can accept arguments and return values, just like static methods.
+
+They can return any data type, including an object of the same class.
+
+For example:
+
+```java
+public int getAge() {
+    return this.age;
+}
+```
+
+Calling `peter.getAge()` returns the age of the `peter` object.
+
+
+
+#### Key Takeaways
+
+- Static methods are associated with a class and can be called using the class name.
+- Instance methods are associated with objects and are called through an instance.
+- Instance methods can access the fields of the particular object using `this`.
+- Both static and instance methods can accept parameters and return values.
+
+
+### Access Modifiers
+
+**Access modifiers** are keywords that control who can access classes, fields, methods, and constructors.
+
+They help improve code clarity and safety by hiding internal implementation details and exposing only what is necessary.
+
+Java has four access levels:
+
+- `private`
+- Package-private (default, no keyword)
+- `protected`
+- `public`
+
+
+### Why Use Access Modifiers?
+
+**Code clarity:** Hide internal implementation details and expose only the necessary functionality. This is similar to using buttons on a washing machine without needing to understand its internal mechanism.
+
+**Code safety:** Restrict direct access to important fields and methods to prevent other classes from changing data in unintended ways.
+
+A common approach is to expose public methods as the interface while keeping internal logic restricted.
+
+
+### Public and Package-Private Classes
+
+Top-level classes can have only two access levels: `public` or package-private.
+
+**Package-private:** A class without an explicit access modifier is accessible only to classes in the same package.
+
+```java
+package org.example;
+
+class PackagePrivateClass {
+}
+```
+
+Classes in other packages cannot access it. A subpackage is considered a different package.
+
+**Public:** A public class can be accessed from other packages.
+
+```java
+package org.example;
+
+public class PublicClass {
+}
+```
+
+Use `public` for classes intended to be accessible externally and package-private for internal implementation classes.
+
+
+### Private Members
+
+Fields, methods, and constructors can be declared `private`. A private member is accessible only within its own class.
+
+Fields are often private to protect an object's data. Other classes can access them through controlled methods, such as getters and setters.
+
+- **Getter:** Returns the value of a field.
+- **Setter:** Sets or updates the value of a field.
+
+Example:
+
+```java
+public class Counter {
+    private long current = 0;
+
+    public long getCurrent() {
+        return this.current;
+    }
+
+    public void inc() {
+        inc(1L);
+    }
+
+    private void inc(long val) {
+        this.current += val;
+    }
+}
+```
+
+- `current` cannot be accessed directly from another class.
+- `getCurrent()` allows other classes to read the value.
+- `inc()` allows the value to be incremented.
+- `inc(long val)` is private and hides the internal implementation.
+
+Private constructors can also be used when object creation should be restricted to within the class.
+
+
+### Package-Private Members
+
+Package-private access requires no keyword. Fields, methods, and constructors with this access level can be accessed by classes in the same package.
+
+```java
+public class Salary {
+    long income;
+
+    Salary(long income) {
+        this.income = income;
+    }
+}
+```
+
+Both `income` and the constructor are package-private.
+
+Another class in the same package can create a `Salary` object and access its `income` field.
+
+```java
+public class Promotion {
+    Salary salary;
+
+    Promotion(Salary salary) {
+        this.salary = salary;
+    }
+
+    public void promote() {
+        salary.income += 1500;
+    }
+}
+```
+
+
+### Protected and Public Members
+
+**Protected:** Accessible within the same package and by subclasses, including subclasses in other packages.
+
+**Public:** Accessible from any package, subject to other Java access and module restrictions.
+
+Public access is commonly used for constructors and methods that form a class's public API. Fields are less commonly made public.
+
+
+### Access Modifier Comparison
+
+From most restrictive to least restrictive:
+
+| Modifier | Access |
+|---|---|
+| `private` | Within the declaring class only |
+| Package-private | Within the same package |
+| `protected` | Same package and subclasses |
+| `public` | Accessible from anywhere |
+
+Only `public` and package-private access are allowed for top-level classes. All four access levels can be used for class members.
+
+
+#### Key Takeaways
+
+- Access modifiers control visibility and help protect data.
+- Use the most restrictive access level that makes sense.
+- Keep fields private when direct external access is unnecessary.
+- Use public methods to provide controlled access to an object's functionality.
+- Package-private members are accessible within the same package.
+- A subpackage is not the same package.
+
+---
