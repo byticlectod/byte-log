@@ -5505,4 +5505,1114 @@ The choice is often standardized according to the coding style of a project.
 
 ---
 
+## Build Tools
 
+A **build tool** is a program that automates the process of creating executable applications from source code.
+
+The build process can include:
+
+- Compiling source code
+- Linking code
+- Packaging the application into a usable or executable form
+
+For small projects, these steps can be done manually. For larger projects, manually managing the build process becomes inefficient and increases the risk of human error.
+
+Build tools automate these tasks, making the build process more consistent and saving time.
+
+
+### What Can Build Tools Do?
+
+Modern build tools can automate many tasks during software development:
+
+1. **Download and manage dependencies** — automatically add the libraries required by a project.
+2. **Compile source code** — invoke the compiler for the project's source files.
+3. **Package compiled code** — create production-ready archives such as JAR files.
+4. **Run tests** — automatically test the application after changes.
+5. **Deploy applications** — deploy the application to a production environment.
+
+The exact features depend on the build tool. Some tools can also generate documentation and perform other tasks.
+
+
+### Java Build Tools
+
+Three major build tools used with Java are:
+
+- **Apache Ant**
+- **Apache Maven**
+- **Gradle**
+
+**Apache Ant** was released in 2000 and is the oldest of the three. It is less common in new projects but is still used in some existing projects.
+
+**Apache Maven** was released in 2004 and is widely used for Java projects, particularly server-side applications. It provides dependency management and follows the **Convention Over Configuration** approach, where standard project conventions work by default and developers mainly configure unconventional aspects.
+
+**Gradle** was released in 2007. It is widely used for Android development and is also used for server and desktop applications. It combines flexible build features with dependency management and project conventions.
+
+Maven and Gradle are more than simple build tools because they can manage much of an application's development lifecycle.
+
+
+### Other Build Tools
+
+**sbt (Scala Build Tool)** is primarily used for Scala projects, but it can also be used with Java and Kotlin.
+
+
+### Gradle
+
+**Gradle** is a build automation tool used to build and manage projects written in Java, Kotlin, Scala, and other JVM-based languages.
+
+It can manage project dependencies and determine how a project should be built.
+
+Gradle uses a **plugin system**, which makes it highly extensible. Plugins can provide features such as:
+
+- Automatic versioning
+- Automated testing
+- Build reports
+- Other build-related tasks
+
+
+### Gradle DSL
+
+Gradle uses a **domain-specific language (DSL)** for writing build scripts.
+
+Gradle supports two languages for its DSL:
+
+- **Groovy**
+- **Kotlin**
+
+A DSL is a language designed for a specific domain or purpose. Gradle's DSL is designed specifically for build automation.
+
+This is different from a **general-purpose language (GPL)**, which can be used across many different domains.
+
+
+#### Key Concepts of Gradle
+
+Gradle provides several important features:
+
+- **Settings files** — describe how a project should be built.
+- **Build-by-convention** — provides default settings and behavior so developers don't have to specify every build step. Defaults can still be customized.
+- **Dependency management** — automatically downloads external libraries and handles dependency conflicts.
+- **Builds** — supports structured and maintainable builds, including multi-project and partial builds.
+- **Ease of migration** — can adapt to different project structures.
+- **DSL** — allows build scripts to be written using Groovy or Kotlin.
+
+
+### Gradle and Android
+
+Gradle is widely used for building **Android applications**. It is also used for server-side and desktop development.
+
+
+### Installing Gradle
+
+Gradle can be downloaded and installed from its official website.
+
+After installation, use the following command to check whether Gradle is working:
+
+```bash
+gradle -v
+```
+
+A successful installation displays information similar to:
+
+```text
+------------------------------------------------------------
+Gradle 9.0.0
+------------------------------------------------------------
+```
+
+The installed version may be different.
+
+
+### Java Archive (JAR)
+
+A **Java Archive (JAR)** is a platform-independent file format used to package multiple files into a single unit.
+
+A JAR is useful when an application contains many files that need to be distributed together.
+
+Main benefits of JAR files:
+
+- Can contain multiple files of different types
+- Uses **ZIP compression** to reduce file size
+- Can be digitally signed
+
+A JRE can run an application packaged as a JAR, while a JDK is required to create a JAR.
+
+
+### JAR File Structure
+
+A JAR can contain:
+
+- `.class` bytecode files
+- Configuration files such as `.json` and `.xml`
+- Images
+- Sound files
+- Other resources
+
+A typical JAR structure looks like:
+
+```text
+example.jar
+├── META-INF
+│   └── MANIFEST.MF
+├── second
+│   ├── Main.class
+│   └── MyIcon.png
+└── third
+    └── another
+        └── OneMore.class
+```
+
+`.class` files are usually organized into **packages**.
+
+For example:
+
+```text
+third/another
+```
+
+represents the package:
+
+```text
+third.another
+```
+
+Dots are used instead of slashes when writing a package name.
+
+
+### `MANIFEST.MF`
+
+A JAR can contain a special file called `MANIFEST.MF` inside the `META-INF` directory.
+
+The manifest contains metadata about the JAR using headers in the form:
+
+```text
+Name: Value
+```
+
+For example:
+
+```text
+Manifest-Version: 1.0
+Created-By: 9.0.1 (Oracle Corporation)
+Main-Class: second.Main
+```
+
+The `Main-Class` header specifies the class containing the `main` method that should be used to start the application.
+
+The class name is written without the `.class` extension.
+
+The final line of the manifest should end with a newline or carriage return so that it can be parsed properly.
+
+
+### Running a JAR Without `Main-Class`
+
+If the manifest does not contain a `Main-Class` header, you can specify the main class manually:
+
+```bash
+java -cp app-without-main-class-header.jar path.to.Main
+```
+
+Here, `-cp` means **classpath**.
+
+The classpath tells Java where to look for bytecode and resources.
+
+
+### Running a JAR With `Main-Class`
+
+If the manifest contains a `Main-Class` header, you can run the JAR directly:
+
+```bash
+java -jar app-with-main-class-header.jar
+```
+
+Java reads the `Main-Class` entry from the manifest and uses that class to start the application.
+
+
+### Gradle Projects and Tasks
+
+A **Gradle project** is something that Gradle manages. It can represent something to be built, such as a JAR or ZIP file, or an action to perform, such as deploying an application.
+
+A **task** is a single piece of work performed by a Gradle build, such as:
+
+- Compiling classes
+- Running tests
+- Generating documentation
+- Packaging an application
+
+A Gradle build contains one or more projects, and each project contains one or more tasks.
+
+
+### Creating a Gradle Project
+
+A basic Gradle project can be created from the terminal.
+
+First, create a directory and enter it:
+
+```bash
+mkdir gradle-demo
+cd gradle-demo
+```
+
+Then initialize the project:
+
+```bash
+gradle init
+```
+
+Gradle will ask several questions. For a basic project, choose:
+
+- `basic` as the project type
+- `Groovy` as the build script DSL
+
+The generated project has a structure similar to:
+
+```text
+.
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+└── settings.gradle
+```
+
+
+### Gradle Project Files
+
+**`build.gradle`**
+
+The primary build file. It can specify project information, tasks, and external libraries.
+
+**Gradle Wrapper files**
+
+```text
+gradle-wrapper.jar
+gradle-wrapper.properties
+gradlew
+gradlew.bat
+```
+
+The **Gradle Wrapper** allows a project to use Gradle without requiring a separate manual Gradle installation.
+
+**`settings.gradle`**
+
+Specifies which projects are included in the build. It is optional for a single-project build but required for a multi-project build.
+
+
+### Building a Gradle Project
+
+A project can be built using:
+
+```bash
+gradle build
+```
+
+Gradle executes the tasks required by the build.
+
+You can also use the Gradle Wrapper:
+
+```bash
+./gradlew build
+```
+
+On Windows:
+
+```bash
+gradlew.bat build
+```
+
+The Wrapper can automatically download the required Gradle version and run the specified command.
+
+
+### Creating a Gradle Project in IntelliJ IDEA
+
+A Gradle project can also be created directly from **IntelliJ IDEA**.
+
+Choose:
+
+**File → New → Project**
+
+Then select:
+
+- Java or Kotlin as the language
+- Gradle as the build system
+
+You can also configure options such as:
+
+- Project name and location
+- JDK version
+- Gradle DSL language
+
+IntelliJ IDEA then creates and builds the Gradle project.
+
+
+### Modifying `build.gradle`
+
+Using the Groovy DSL, you can add project properties and custom tasks.
+
+```groovy
+description = "A basic Gradle project"
+
+task helloGradle {
+    doLast {
+        println 'Hello, Gradle!'
+    }
+}
+```
+
+The `description` property describes the project.
+
+The `helloGradle` task prints a message when executed.
+
+Run the task with:
+
+```bash
+gradle -q helloGradle
+```
+
+The `-q` option reduces the amount of output displayed by Gradle.
+
+
+### Gradle Kotlin DSL
+
+Gradle also supports **Kotlin DSL** for writing build scripts.
+
+When Kotlin DSL is selected, the build file uses the `.gradle.kts` extension:
+
+```text
+build.gradle.kts
+```
+
+Groovy DSL uses:
+
+```text
+build.gradle
+```
+
+
+### Listing Gradle Tasks
+
+To see the available Gradle tasks, use:
+
+```bash
+gradle tasks --all
+```
+
+The output includes standard Gradle tasks as well as custom tasks such as:
+
+```text
+helloGradle
+```
+
+In a real project, there can be many more tasks because plugins such as the Java or Kotlin plugin can add additional tasks.
+
+
+### Initializing a Gradle Application
+
+Gradle can be used to build and run applications written in JVM-based languages such as Java and Kotlin.
+
+Create an empty project directory and run:
+
+```bash
+gradle init
+```
+
+Choose:
+
+- **Application** as the project type
+- **Java** or **Kotlin** as the implementation language
+- A target Java version
+- **Single application project** or a multi-project structure
+- **Kotlin** or **Groovy** as the build script DSL
+- A test framework such as JUnit Jupiter
+
+For example, a Java application using Kotlin DSL can have this structure:
+
+```text
+.
+├── app
+│   ├── build.gradle.kts
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── org
+│       │   │       └── example
+│       │   │           └── App.java
+│       │   ├── resources
+│       │   └── test
+│       │       ├── java
+│       │       │   └── org
+│       │       │       └── example
+│       │       │           └── AppTest.java
+│       │       └── resources
+├── gradle
+│   ├── wrapper
+│   │   ├── gradle-wrapper.jar
+│   │   ├── gradle-wrapper.properties
+│   │   └── libs.version.toml
+├── gradlew
+├── gradlew.bat
+├── gradle.properties
+└── settings.gradle.kts
+```
+
+The `app` directory represents the application.
+
+The `src` directory contains:
+
+- `main` — application source code and resources
+- `test` — test source code and resources
+
+Java source files are placed under the `java` directory, while Kotlin projects use `kotlin` directories and `.kt` files.
+
+It is good practice to use an organization name as part of the package name, such as:
+
+```text
+org.example
+```
+
+or:
+
+```text
+org.nvidia
+```
+
+
+### Running a Gradle Application
+
+Gradle provides tasks for managing the application.
+
+You can see the available tasks with:
+
+```bash
+gradle tasks --all
+```
+
+Application projects include a `run` task:
+
+```text
+app:run - Runs this project as a JVM application
+```
+
+Run the application with:
+
+```bash
+gradle run
+```
+
+Or use the Gradle Wrapper:
+
+```bash
+./gradlew run
+```
+
+On Windows:
+
+```bash
+gradlew.bat run
+```
+
+Gradle builds and runs the application.
+
+The generated application can display:
+
+```text
+Hello World!
+```
+
+When the application is run, Gradle creates compiled `.class` files inside the `app/build/` directory.
+
+
+### Building the Application
+
+To build the application, use:
+
+```bash
+gradle build
+```
+
+The `build` task assembles and tests the project.
+
+A successful build produces application distributions such as:
+
+```text
+app/build/distributions/app.jar
+app/build/distributions/app.zip
+```
+
+These archives can then be distributed as application packages.
+
+
+### `build.gradle` and `build.gradle.kts`
+
+The `build.gradle` or `build.gradle.kts` file is the **primary configuration file** for a Gradle project.
+
+Gradle supports two DSLs:
+
+- `build.gradle` — Groovy DSL
+- `build.gradle.kts` — Kotlin DSL
+
+The file defines the project configuration, plugins, dependencies, and tasks.
+
+
+### Plugins
+
+The `plugins` section adds plugins that extend Gradle's capabilities.
+
+For example:
+
+```kotlin
+plugins {
+    application
+    kotlin("jvm") version "2.2.0"
+    alias(libs.plugins.spotless)
+}
+```
+
+The `application` plugin adds support for building and running a JVM application.
+
+Plugins can also be loaded using a **version catalog**:
+
+```toml
+[versions]
+spotless = "7.2.1"
+
+[plugins]
+spotless = { id = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
+```
+
+`alias()` can then be used to load the plugin:
+
+```kotlin
+alias(libs.plugins.spotless)
+```
+
+An older approach you may encounter is:
+
+```groovy
+apply plugin: "application"
+```
+
+or:
+
+```kotlin
+apply(plugin = "application")
+```
+
+
+### Repositories and Dependencies
+
+The `repositories` section specifies where Gradle should look for external libraries.
+
+A common repository is Maven Central:
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+```
+
+The `dependencies` section specifies the external libraries required by the project.
+
+Dependencies can be defined in the version catalog:
+
+```toml
+[versions]
+guava = "33.4.6-jre"
+junit-jupiter = "5.12.1"
+
+[libraries]
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+```
+
+They can then be used in `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation(libs.guava)
+}
+```
+
+Gradle downloads the required dependencies from the configured repositories.
+
+
+### Configuring the Application Plugin
+
+The `application` plugin allows the application to be run using Gradle.
+
+The `mainClass` property specifies the class containing the application's entry point:
+
+```kotlin
+application {
+    mainClass = "org.example.App"
+}
+```
+
+The application can then be started with:
+
+```bash
+gradle run
+```
+
+
+### Creating a JAR with Gradle
+
+Gradle can create a JAR file using:
+
+```bash
+gradle jar
+```
+
+The generated JAR is placed inside:
+
+```text
+app/build/libs/
+```
+
+Generated build files can be removed using:
+
+```bash
+gradle clean
+```
+
+
+### Adding `Main-Class` to a JAR
+
+A JAR created with the standard `jar` task may not contain a `Main-Class` entry in its manifest.
+
+Without it, running:
+
+```bash
+java -jar app/build/libs/app.jar
+```
+
+can produce:
+
+```text
+no main manifest attribute, in app/build/libs/app.jar
+```
+
+The `Main-Class` attribute can be added to the JAR manifest.
+
+For Groovy DSL:
+
+```groovy
+jar {
+    manifest {
+        attributes("Main-Class": "org.nvidia.gradleapp.App")
+    }
+}
+```
+
+For Kotlin DSL:
+
+```kotlin
+tasks.jar {
+    manifest {
+        attributes("Main-Class" to "org.nvidia.gradleapp.AppKt")
+    }
+}
+```
+
+This adds the `Main-Class` entry to `MANIFEST.MF`, allowing the JVM to find the application's entry point when using:
+
+```bash
+java -jar app/build/libs/app.jar
+```
+
+
+### Gradle Dependencies
+
+Real applications often rely on external libraries because they provide ready-made, tested functionality and save development time.
+
+In Gradle, external libraries are called **dependencies**. They are commonly packaged as JAR files.
+
+Gradle can automatically download dependencies and add them to the project, including handling possible version conflicts.
+
+Without dependency management, you would need to manually download JAR files and add them to the project's classpath.
+
+
+### Adding Dependencies
+
+To add an external library to a Gradle project, there are two main steps:
+
+1. **Define a repository** where Gradle can find the library.
+2. **Define the dependency** that the project needs.
+
+This topic focuses on repositories.
+
+
+### Repositories
+
+A **repository** is a location where libraries are stored.
+
+A Gradle project can use zero or more repositories.
+
+Common repository types include:
+
+- Maven-compatible repositories
+- Ivy-compatible repositories
+- Local directories
+
+Gradle provides several aliases for Maven-compatible repositories:
+
+- `mavenCentral()` — uses the Maven Central Repository.
+- `mavenLocal()` — uses the local Maven repository.
+- `google()` — uses the Google Maven repository.
+
+
+### Defining a Repository
+
+To use Maven Central, add it to the `repositories` block:
+
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
+Gradle will then search Maven Central when resolving dependencies.
+
+
+### Local JAR Files
+
+If a required JAR is not available in a public repository, you can download it manually and place it in a local directory such as `libs`.
+
+Gradle can use that directory as a repository:
+
+```groovy
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+```
+
+This allows Gradle to find JAR files stored locally in the `libs` directory.
+
+
+### Maven
+
+**Maven** is a build and project management tool commonly used for Java-based projects.
+
+Maven provides a unified project structure, manages dependencies, describes how a project is built, and can run automated tests and generate build reports.
+
+Maven uses a **declarative approach**, meaning you describe **what** should be done rather than **how** it should be done.
+
+
+### Key Concepts of Maven
+
+**Project Object Model (POM)**
+
+Every Maven project has a `pom.xml` file. It contains information such as:
+
+- Project name
+- Version
+- Properties
+- Dependencies
+- Build configuration
+
+
+**Convention Over Configuration**
+
+Maven provides default values and behavior for common project settings. You only need to configure options that differ from the defaults.
+
+
+**Dependency Management**
+
+Maven can automatically download external libraries and handle dependency conflicts.
+
+Dependencies are declared in the `pom.xml` file.
+
+
+**Repositories**
+
+Maven can obtain dependencies from public repositories or the local file system.
+
+
+**Build Lifecycle**
+
+Maven defines a standard sequence of phases for building and distributing a project, including:
+
+- Validation
+- Compilation
+- Testing
+- Packaging
+- Installation
+
+
+**Plugins**
+
+Maven can be extended using plugins that provide additional functionality for the build process, testing, reporting, and other tasks.
+
+Plugin configuration is stored in the `pom.xml` file.
+
+
+### Installing Maven
+
+Maven can be downloaded as a binary distribution and installed on your operating system.
+
+Maven projects can also be created directly using IntelliJ IDEA.
+
+After installation, verify Maven using:
+
+```bash
+mvn -version
+```
+
+A successful installation displays information about the Maven version, Maven installation directory, Java version, and other environment details.
+
+The exact Maven and Java versions may differ.
+
+
+### Maven Project Coordinates
+
+Every Maven project is uniquely identified by three coordinates:
+
+- **`groupId`** — identifies the organization or project group, such as `org.nvidia`.
+- **`artifactId`** — the name of the project, such as `first-maven-app`.
+- **`version`** — identifies the project version, such as `1.0` or `1.0.1`.
+
+Together, they form:
+
+```text
+<groupId>:<artifactId>:<version>
+```
+
+Example:
+
+```text
+org.nvidia.maven:first-maven-proj:1.0
+```
+
+Maven also supports a `packaging` option that determines the type of artifact produced, such as `jar`, `war`, or `pom`. If it is not specified, Maven uses `jar` by default.
+
+
+
+### Creating a Maven Project
+
+A simple Maven project can be generated using the Maven Quickstart archetype:
+
+```bash
+mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.3 -DgroupId=com.nvidia -DartifactId=first-maven-app -DinteractiveMode=false
+```
+
+This creates a project with a standard Maven structure.
+
+
+### Maven Project Structure
+
+A basic Maven project looks like:
+
+```text
+first-maven-app
+├── pom.xml
+└── src
+    ├── main
+    │   └── java
+    │       └── com
+    │           └── nvidia
+    │               └── App.java
+    └── test
+        └── java
+            └── com
+                └── nvidia
+                    └── AppTest.java
+```
+
+The main directories are:
+
+- `src/main/java` — application source code
+- `src/test/java` — test source code
+- `pom.xml` — Maven project configuration
+
+The basic Maven structure remains consistent across projects.
+
+
+
+### `pom.xml`
+
+`pom.xml` is the **Project Object Model (POM)** file and the basic configuration unit of a Maven project.
+
+A simple POM contains information such as:
+
+```xml
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nvidia</groupId>
+    <artifactId>first-maven-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>first-maven-app</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        ...
+    </dependencies>
+</project>
+```
+
+Important POM elements include:
+
+- `project` — top-level element
+- `modelVersion` — POM model version
+- `groupId` — organization identifier
+- `artifactId` — project identifier
+- `version` — project version
+- `name` — project display name
+- `url` — project website
+- `properties` — common project settings
+- `dependencies` — libraries and other projects required by the project
+
+The minimum POM requirements are `project`, `modelVersion`, and the three coordinates: `groupId`, `artifactId`, and `version`.
+
+
+
+### Maven Build Lifecycle
+
+Maven organizes the build process into **phases**. The three main lifecycle sets are:
+
+- **default**
+- **clean**
+- **site**
+
+Important phases of the **default** lifecycle include:
+
+```text
+validate → compile → test → package → verify → install → deploy
+```
+
+- `validate` — checks that the project is valid.
+- `compile` — compiles the source code.
+- `test` — runs tests.
+- `package` — packages compiled code into a JAR or WAR.
+- `verify` — checks the project's integrity and correctness.
+- `install` — installs the package into the local repository.
+- `deploy` — copies the final package to a remote repository.
+
+The **clean** lifecycle removes files generated by previous builds:
+
+```text
+pre-clean → clean → post-clean
+```
+
+The **site** lifecycle generates project documentation:
+
+```text
+pre-site → site → post-site → site-deploy
+```
+
+A Maven phase can be executed using:
+
+```bash
+mvn <phase-name>
+```
+
+
+
+### Building a Maven Project
+
+Run Maven commands from the project root, where `pom.xml` is located.
+
+Compile the project without running tests:
+
+```bash
+mvn compile
+```
+
+Package the project and run tests:
+
+```bash
+mvn package
+```
+
+Clean the previous build and package the project:
+
+```bash
+mvn clean package
+```
+
+Clean and install the package into the local Maven repository:
+
+```bash
+mvn clean install
+```
+
+A successful build produces:
+
+```text
+BUILD SUCCESS
+```
+
+
+### The `target` Directory
+
+After building the project, Maven creates a `target` directory:
+
+```text
+first-maven-app
+├── pom.xml
+├── src
+└── target
+```
+
+The `target` directory contains the results of the build, including the generated JAR:
+
+```text
+first-maven-app-1.0-SNAPSHOT.jar
+```
+
+The exact filename depends on the project's `artifactId` and `version`.
+
+
+
+### Running a Maven JAR
+
+A generated JAR can be run by specifying the JAR on the classpath and the fully qualified main class:
+
+```bash
+java -cp target/first-maven-app-1.0-SNAPSHOT.jar com.nvidia.App
+```
+
+The application then runs its `main` method.
+
+
+### Cleaning a Maven Project
+
+To remove the results of the previous build, use:
+
+```bash
+mvn clean
+```
+
+This removes the `target` directory.
+
+
+### Common Maven Problems
+
+**No POM file in this directory**
+
+Maven build commands must be executed from a directory containing `pom.xml`.
+
+**Source/Target option is no longer supported**
+
+Older Java source and target versions may not be supported by newer Maven configurations. The source and target versions can be configured in the POM:
+
+```xml
+<properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+</properties>
+```
+
+The exact Java version should match the version supported by the project's Maven/compiler configuration.
+
+
+---
