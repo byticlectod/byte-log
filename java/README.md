@@ -7856,4 +7856,463 @@ Only `public` and package-private access are allowed for top-level classes. All 
 - Package-private members are accessible within the same package.
 - A subpackage is not the same package.
 
+
+### Data Encapsulation
+
+**Encapsulation** is the practice of hiding a class's internal data and providing controlled access through methods.
+
+Instead of exposing fields directly, a class typically declares them `private` and provides public **getters** and **setters**.
+
+Benefits of encapsulation:
+
+- Fields can be read-only, write-only, or both.
+- A class can control which values are stored in its fields.
+- Other classes do not depend on the internal implementation of the class.
+
+
+### Getters and Setters
+
+**Getters** read and return field values, while **setters** modify field values.
+
+Naming conventions:
+
+- Getters usually start with `get`, followed by the field name with its first letter capitalized.
+- Setters start with `set`, followed by the capitalized field name.
+- Boolean getters commonly start with `is` instead of `get`.
+
+Example:
+
+```java
+class Account {
+
+    private long id;
+    private String code;
+    private long balance;
+    private boolean enabled;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+}
+```
+
+- `private` prevents direct access to fields from other classes.
+- `getId()` returns the value of `id`.
+- `setId(long id)` updates the field.
+- `isEnabled()` is the boolean getter.
+
+
+### Using Getters and Setters
+
+```java
+Account account = new Account();
+
+account.setId(1000);
+account.setCode("62968503812");
+account.setBalance(100_000_000);
+account.setEnabled(true);
+
+System.out.println(account.getId());      // 1000
+System.out.println(account.getCode());    // 62968503812
+System.out.println(account.getBalance()); // 100000000
+System.out.println(account.isEnabled());  // true
+```
+
+Setters modify fields, while getters retrieve their values.
+
+
+### Validation in Setters
+
+Setters can contain logic to control which values are allowed to be stored.
+
+For example, this setter ignores a `null` value:
+
+```java
+class Patient {
+
+    private String name;
+
+    public Patient(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        if (name != null) {
+            this.name = name;
+        }
+    }
+}
+```
+
+If `setName(null)` is called, the existing name remains unchanged.
+
+Getters can also calculate and return values rather than simply returning a stored field.
+
+
+#### Key Takeaways
+
+- Declare fields `private` to prevent direct external access.
+- Use getters to read fields and setters to modify them.
+- Follow the `getFieldName()`, `setFieldName()` and `isFieldName()` naming conventions.
+- Setters can validate input before changing a field.
+- Only provide the getters and setters that are needed.
+- IntelliJ IDEA and other IDEs can generate getters and setters automatically.
+
+
+### Constructor Overloading
+
+Constructor overloading means defining multiple constructors in the same class, each with a different parameter list.
+
+- Every constructor must have the same name as the class.
+- Constructors can have different numbers, types, or orders of parameters.
+- Two constructors cannot have the same number, types, and order of parameters.
+
+Example:
+
+```java
+public class Robot {
+    String name;
+    String model;
+
+    public Robot() {
+        this.name = "Anonymous";
+        this.model = "Unknown";
+    }
+
+    public Robot(String name, String model) {
+        this.name = name;
+        this.model = model;
+    }
+}
+```
+
+The class has two constructors:
+
+- `Robot()` initializes the fields with `"Anonymous"` and `"Unknown"`.
+- `Robot(String name, String model)` initializes the fields using the provided arguments.
+
+Creating objects:
+
+```java
+Robot anonymous = new Robot();
+Robot andrew = new Robot("Andrew", "NDR-114");
+```
+
+The first object uses the no-argument constructor, while the second uses the two-argument constructor.
+
+
+### Invoking Constructors from Other Constructors
+
+A constructor can call another constructor in the same class using `this()`.
+
+```java
+this(); // Calls the no-argument constructor
+
+this("arg1", "arg2"); // Calls a constructor with two String arguments
+```
+
+**Important:** A constructor call using `this()` must be the first statement in the calling constructor.
+
+
+### Constructor Chaining
+
+Constructor chaining means calling one constructor from another to reuse initialization logic and avoid repeating code.
+
+Example:
+
+```java
+public class Robot {
+    String name;
+    String model;
+    int lifetime;
+
+    public Robot() {
+        this.name = "Anonymous";
+        this.model = "Unknown";
+    }
+
+    public Robot(String name, String model) {
+        this(name, model, 20);
+    }
+
+    public Robot(String name, String model, int lifetime) {
+        this.name = name;
+        this.model = model;
+        this.lifetime = lifetime;
+    }
+}
+```
+
+How it works:
+
+1. `Robot()` initializes the name and model with default values.
+2. `Robot(String name, String model)` calls the three-argument constructor using `this(name, model, 20)`.
+3. `Robot(String name, String model, int lifetime)` initializes all three fields.
+
+When creating an object:
+
+```java
+Robot andrew = new Robot("Andrew", "NDR-114");
+```
+
+The two-argument constructor calls the three-argument constructor, passing `20` as the lifetime.
+
+If the three-argument constructor contains:
+
+```java
+System.out.println("The third constructor is invoked");
+```
+
+That message will be printed when the two-argument constructor is used, because it invokes the third constructor.
+
+
+#### Key Takeaways
+
+- Constructor overloading allows a class to have multiple constructors with different parameter lists.
+- `this()` calls another constructor in the same class.
+- A constructor call using `this()` must be the first statement.
+- Constructor chaining helps reuse initialization code and avoid duplication.
+- The constructor ultimately called can initialize all the object's fields.
+
+## Static Members in Java
+
+Static members belong to the class itself rather than individual objects. They are declared using the `static` keyword.
+
+A class can have:
+- Static fields (class variables).
+- Static methods (class methods).
+- Static constants (static final fields).
+
+---
+
+### Class Variables (Static Fields)
+
+A class variable is declared with the `static` keyword. Only one copy exists and is shared among all instances of the class.
+
+- Instance fields belong to individual objects, so each object has its own value.
+- Static fields belong to the class, so all objects share the same value.
+- Static fields can hold primitive or reference types.
+- They can be accessed directly using the class name.
+
+Syntax:
+
+```java
+ClassName.fieldName;
+```
+
+Example:
+
+```java
+class SomeClass {
+    public static String staticStringField;
+    public static int staticIntField;
+}
+```
+
+Accessing static fields:
+
+```java
+SomeClass.staticIntField = 10;
+SomeClass.staticStringField = "it's a static member";
+
+System.out.println(SomeClass.staticIntField); // 10
+System.out.println(SomeClass.staticStringField);
+```
+
+Static fields can also be accessed through an instance, although accessing them through the class name is the standard approach.
+
+```java
+SomeClass.staticIntField = 30;
+
+SomeClass instance = new SomeClass();
+
+System.out.println(instance.staticIntField); // 30
+```
+
+**Note:** Declaring non-final public static fields is generally not recommended because any accessible code may modify them.
+
+#### Example: Tracking the Last Created Object
+
+```java
+public class SomeClass {
+    public static Date lastCreated;
+
+    public SomeClass() {
+        lastCreated = new Date();
+    }
+}
+```
+
+Every time an object is created, the constructor updates the shared static field.
+
+```java
+System.out.println(SomeClass.lastCreated); // null initially
+
+SomeClass instance1 = new SomeClass();
+System.out.println(SomeClass.lastCreated);
+
+SomeClass instance2 = new SomeClass();
+System.out.println(SomeClass.lastCreated);
+```
+
+The field initially contains `null` because no value was assigned. Each new object updates the same static field.
+
+
+### Class Constants
+
+A class constant is a static field declared with both `static` and `final`.
+
+- `static` makes it shared by the class.
+- `final` prevents its value from being reassigned.
+- Constant names are conventionally written in uppercase, with underscores separating words.
+
+Example:
+
+```java
+class Physics {
+    public static final long SPEED_OF_LIGHT = 299_792_458;
+
+    public static final double ELECTRON_MASS = 9.1093837e-31;
+}
+```
+
+Accessing constants:
+
+```java
+System.out.println(Physics.ELECTRON_MASS);
+System.out.println(Physics.SPEED_OF_LIGHT);
+```
+
+Attempting to reassign a constant causes a compilation error:
+
+```java
+Physics.ELECTRON_MASS = 10; // Compilation error
+```
+
+The `Math` class also contains constants such as `Math.PI` and `Math.E`.
+
+
+### Class Methods (Static Methods)
+
+A static method belongs to the class and can be called without creating an object.
+
+Syntax:
+
+```java
+ClassName.staticMethodName(args);
+```
+
+Static methods can have parameters or no parameters, just like instance methods.
+
+#### Rules of Static Methods
+
+- A static method can directly access static fields and call static methods.
+- It cannot directly access instance fields or invoke instance methods because it has no specific object context.
+- It cannot use the `this` keyword.
+- Instance methods can access both static and instance members.
+
+Example:
+
+```java
+public class SomeClass {
+
+    public SomeClass() {
+        invokeAnInstanceMethod();
+        invokeAStaticMethod();
+    }
+
+    public static void invokeAStaticMethod() {
+        // Cannot directly call an instance method here
+    }
+
+    public void invokeAnInstanceMethod() {
+        invokeAStaticMethod(); // Allowed
+    }
+}
+```
+
+A constructor and an instance method can call static methods. However, a static method cannot directly call an instance method.
+
+#### Calling an Instance Method from a Static Method
+
+To call an instance method from a static method, provide an object reference.
+
+```java
+public static void invokeAStaticMethod(SomeClass someClassInstance) {
+
+    someClassInstance.invokeAnInstanceMethod();
+
+    AnotherClass anotherClassInstance = new AnotherClass();
+
+    anotherClassInstance.invokeAnotherClassInstanceMethod();
+    anotherClassInstance.invokeAnotherClassStaticMethod();
+}
+```
+
+
+### Utility Methods
+
+Static methods are commonly used for utility operations that do not depend on an individual object's state.
+
+Examples from the Java standard library:
+
+```java
+Math.min(a, b);
+Math.abs(val);
+Math.pow(x, y);
+
+Arrays.toString(array);
+
+Integer.parseInt("123");
+String.valueOf(123);
+Long.valueOf(123);
+```
+
+
+### The Main Method
+
+The `main` method is an example of a static method. It must be static so Java can invoke it without first creating an instance of the class.
+
+
+#### Key Takeaways
+
+- `static` members belong to the class, not individual objects.
+- Static fields have one shared copy across all instances.
+- Static methods can be called using the class name without creating an object.
+- `static final` fields are class constants and cannot be reassigned.
+- Static methods cannot directly access instance members or use `this`.
+- Instance methods can access both static and instance members.
+
 ---
