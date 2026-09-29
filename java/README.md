@@ -8315,4 +8315,312 @@ The `main` method is an example of a static method. It must be static so Java ca
 - Static methods cannot directly access instance members or use `this`.
 - Instance methods can access both static and instance members.
 
+
+### Inheritance in Java
+
+Inheritance is an OOP mechanism that allows a new class to derive fields and methods from an existing class. It promotes code reuse and helps build class hierarchies.
+
+Inheritance represents an **IS-A relationship**: a subclass is a more specific type of its superclass.
+
+
+### Extending Classes
+
+Terminology:
+
+- **Superclass (parent/base class):** The class being inherited from.
+- **Subclass (child/derived class):** The class that inherits from another class.
+
+The `extends` keyword is used to inherit from a class.
+
+```java
+class SuperClass { }
+
+class SubClassA extends SuperClass { }
+
+class SubClassB extends SuperClass { }
+
+class SubClassC extends SubClassA { }
+```
+
+Important rules:
+
+- A Java class can extend only one superclass (no multiple-class inheritance).
+- A class hierarchy can have multiple levels.
+- A superclass can have multiple subclasses.
+- A subclass can add its own fields and methods in addition to inherited members.
+
+#### Accessing Inherited Members
+
+A subclass inherits public and protected fields and methods from its superclass.
+
+- `public`: Accessible from anywhere permitted by Java access rules.
+- `protected`: Accessible within the same package and by subclasses.
+- `private`: Not directly accessible or inherited as accessible members by subclasses.
+
+Private superclass fields can still be accessed through public or protected methods provided by the superclass, such as getters and setters.
+
+**Constructors are not inherited.** A subclass can invoke a superclass constructor using `super`.
+
+
+### Example: Class Hierarchy
+
+Consider a telecommunications company with people, clients, employees, programmers, and managers.
+
+```java
+class Person {
+    protected String name;
+    protected int yearOfBirth;
+    protected String address;
+
+    // Getters and setters
+}
+
+class Client extends Person {
+    protected String contractNumber;
+    protected boolean gold;
+
+    // Getters and setters
+}
+
+class Employee extends Person {
+    protected Date startDate;
+    protected Long salary;
+
+    // Getters and setters
+}
+
+class Programmer extends Employee {
+    protected String[] programmingLanguages;
+
+    public String[] getProgrammingLanguages() {
+        return programmingLanguages;
+    }
+
+    public void setProgrammingLanguages(String[] programmingLanguages) {
+        this.programmingLanguages = programmingLanguages;
+    }
+}
+
+class Manager extends Employee {
+    protected boolean smile;
+
+    public boolean isSmile() {
+        return smile;
+    }
+
+    public void setSmile(boolean smile) {
+        this.smile = smile;
+    }
+}
+```
+
+The hierarchy:
+
+```text
+Person
+├── Client
+└── Employee
+    ├── Programmer
+    └── Manager
+```
+
+- `Person` stores common information.
+- `Client` adds contract information.
+- `Employee` adds employment information.
+- `Programmer` adds programming languages.
+- `Manager` adds a smile field.
+
+`Programmer` inherits from `Employee`, which inherits from `Person`. Therefore, a `Programmer` object can use members from all three classes.
+
+#### Using Inherited Methods
+
+```java
+Programmer p = new Programmer();
+
+p.setName("John Elephant");
+p.setYearOfBirth(1985);
+p.setAddress("Some street, 15");
+p.setStartDate(new Date());
+p.setSalary(500_000L);
+
+p.setProgrammingLanguages(
+    new String[] { "Java", "Scala", "Kotlin" }
+);
+
+System.out.println(p.getName()); // John Elephant
+System.out.println(p.getSalary()); // 500000
+
+System.out.println(
+    Arrays.toString(p.getProgrammingLanguages())
+); // [Java, Scala, Kotlin]
+```
+
+The inherited getters and setters allow the programmer object to access and modify fields defined in its parent classes.
+
+
+### Final Classes
+
+A class declared with the `final` keyword cannot be extended.
+
+```java
+final class SuperClass { }
+```
+
+Attempting to inherit from it causes a compile-time error.
+
+Examples of final classes in the Java standard library include:
+
+- `Integer`
+- `Long`
+- `String`
+- `Math`
+
+
+#### Key Takeaways
+
+- Inheritance enables code reuse and organizes classes into hierarchies.
+- Use `extends` to inherit from a class.
+- Java supports single-class inheritance: each class can extend only one superclass.
+- Subclasses inherit accessible public and protected members but cannot directly access private superclass members.
+- Constructors are not inherited; `super` can invoke a superclass constructor.
+- Inheritance represents an IS-A relationship.
+- A `final` class cannot have subclasses.
+
+
+### Protected Access Modifier
+
+Java has four access modifiers that control where class members can be accessed:
+
+| Modifier | Accessibility |
+|---|---|
+| `private` | Within the same class only |
+| `default` (package-private) | Within the same package |
+| `protected` | Within the same package and subclasses |
+| `public` | From anywhere, subject to Java access rules |
+
+
+### Protected vs Default
+
+Both `protected` and package-private members are accessible within the same package.
+
+The difference is that `protected` members are also accessible to subclasses outside the package, while package-private members are not.
+
+- `default`: Accessible to classes in the same package.
+- `protected`: Accessible to classes in the same package and extending classes.
+
+
+### Protected vs Private
+
+- `private` members are accessible only within the class where they are declared.
+- `protected` members can also be accessed by subclasses and classes in the same package.
+
+If a field, method, or inner class is intended only for use within its own class, make it `private`.
+
+**Guideline:** Use the most restrictive access modifier that fits. Start with `private` when unsure, and grant more access when necessary.
+
+A top-level class cannot be declared `protected`, but an inner class can.
+
+
+### Example: Bluetooth Gadgets
+
+Consider a package named `org.hyperskill.bluetooth` containing `Laptop`, `MobileGadget`, `SmartPhone`, and `SmartWatch`.
+
+#### Laptop
+
+```java
+package org.hyperskill.bluetooth;
+
+public class Laptop {
+
+    private String info;
+
+    void receiveInfo(String info) {
+        this.info = info;
+    }
+}
+```
+
+- `info` is private and cannot be accessed directly from other classes.
+- `receiveInfo()` is package-private because it has no access modifier.
+- Classes in the same package can call `receiveInfo()`.
+
+#### MobileGadget
+
+```java
+package org.hyperskill.bluetooth;
+
+public class MobileGadget {
+
+    protected void printNotification(String data) {
+        System.out.println(data);
+    }
+}
+```
+
+The protected method can be accessed by subclasses and other classes in the same package.
+
+#### SmartPhone
+
+```java
+package org.hyperskill.bluetooth;
+
+public class SmartPhone extends MobileGadget {
+
+    private Laptop connectedLaptop;
+
+    public SmartPhone() {
+        this.connectedLaptop = new Laptop();
+    }
+
+    private void sendInfoToLaptop(String info) {
+        printNotification("Sending info to laptop : " + info);
+        connectedLaptop.receiveInfo(info);
+    }
+}
+```
+
+`SmartPhone` inherits the protected `printNotification()` method from `MobileGadget` and can call the package-private `receiveInfo()` method because it belongs to the same package.
+
+#### SmartWatch
+
+```java
+package org.hyperskill.bluetooth;
+
+public class SmartWatch extends MobileGadget {
+
+    private int avgHeartRate;
+    private Laptop connectedLaptop;
+
+    public SmartWatch() {
+        this.avgHeartRate = 75;
+        this.connectedLaptop = new Laptop();
+    }
+
+    private int countHeartRate() {
+        System.out.println("Counting heart rate");
+        return avgHeartRate;
+    }
+
+    private void sendInfoToLaptop(String info) {
+        printNotification("Sending info to laptop : " + info);
+        connectedLaptop.receiveInfo(info);
+    }
+}
+```
+
+- `countHeartRate()` is private and cannot be called directly by `SmartPhone`, even though both classes belong to the same package.
+- `SmartWatch` can call the inherited protected method `printNotification()`.
+- It can also call `Laptop.receiveInfo()` because that method is package-private and both classes belong to the same package.
+
+
+
+#### Key Takeaways
+
+- `protected` provides access to subclasses and classes within the same package.
+- Package-private provides access only within the same package.
+- `private` restricts access to the declaring class.
+- `public` allows access from anywhere, subject to Java access rules.
+- Top-level classes cannot be `protected`.
+- Use the most restrictive access modifier that meets the requirements.
+
 ---
