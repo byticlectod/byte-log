@@ -8523,12 +8523,12 @@ A top-level class cannot be declared `protected`, but an inner class can.
 
 ### Example: Bluetooth Gadgets
 
-Consider a package named `org.hyperskill.bluetooth` containing `Laptop`, `MobileGadget`, `SmartPhone`, and `SmartWatch`.
+Consider a package named `org.nvidia.bluetooth` containing `Laptop`, `MobileGadget`, `SmartPhone`, and `SmartWatch`.
 
 #### Laptop
 
 ```java
-package org.hyperskill.bluetooth;
+package org.nvidia.bluetooth;
 
 public class Laptop {
 
@@ -8547,7 +8547,7 @@ public class Laptop {
 #### MobileGadget
 
 ```java
-package org.hyperskill.bluetooth;
+package org.nvidia.bluetooth;
 
 public class MobileGadget {
 
@@ -8562,7 +8562,7 @@ The protected method can be accessed by subclasses and other classes in the same
 #### SmartPhone
 
 ```java
-package org.hyperskill.bluetooth;
+package org.nvidia.bluetooth;
 
 public class SmartPhone extends MobileGadget {
 
@@ -8584,7 +8584,7 @@ public class SmartPhone extends MobileGadget {
 #### SmartWatch
 
 ```java
-package org.hyperskill.bluetooth;
+package org.nvidia.bluetooth;
 
 public class SmartWatch extends MobileGadget {
 
@@ -8622,5 +8622,444 @@ public class SmartWatch extends MobileGadget {
 - `public` allows access from anywhere, subject to Java access rules.
 - Top-level classes cannot be `protected`.
 - Use the most restrictive access modifier that meets the requirements.
+
+### Records in Java
+
+A **record** is a special way to declare a type designed mainly for storing data. Records reduce **boilerplate code** that would normally be required for data classes.
+
+Records provide built-in support for common features such as:
+
+- Private final fields
+- A constructor
+- Accessor methods
+- `equals()`
+- `hashCode()`
+- `toString()`
+
+Records are supported directly by the Java language, so they don't require third-party libraries such as Lombok.
+
+Records are designed to be **immutable**: their state cannot be changed after creation.
+
+---
+
+### Defining Records
+
+A record is declared using the `record` keyword.
+
+```java
+record User() {
+    // empty body
+}
+```
+
+Record components are declared inside parentheses:
+
+```java
+record User(String username, String password) {
+    // empty body
+}
+```
+
+The compiler automatically generates the constructor and accessor methods.
+
+For example:
+
+```java
+User user = new User("alice", "secret");
+
+System.out.println(user.username());
+System.out.println(user.password());
+```
+
+Record accessors are named after their components rather than using the usual `get` prefix.
+
+For example:
+
+```java
+user.username();
+user.password();
+```
+
+### Records vs Classes
+
+A record like:
+
+```java
+record User(String username, String password) {
+}
+```
+
+automatically provides functionality that would require significant boilerplate in a normal class.
+
+The generated functionality includes:
+
+```java
+private final String username;
+private final String password;
+```
+
+A constructor:
+
+```java
+public User(String username, String password) {
+    this.username = username;
+    this.password = password;
+}
+```
+
+Accessor methods:
+
+```java
+public String username() {
+    return username;
+}
+
+public String password() {
+    return password;
+}
+```
+
+It also provides implementations of:
+
+```java
+equals()
+hashCode()
+toString()
+```
+
+
+### Custom Constructors
+
+Records can have custom constructors.
+
+A **compact constructor** does not contain a formal parameter list:
+
+```java
+public record User(String username, String password) {
+
+    public User {
+        if (username == null || password == null) {
+            throw new IllegalArgumentException(
+                "Username and password must not be null"
+            );
+        }
+    }
+}
+```
+
+The compact constructor can be used to validate or process the record components during construction.
+
+
+### Custom Accessors
+
+Record accessors can also be customized.
+
+For example:
+
+```java
+public record User(String username, String password) {
+
+    public String username() {
+        return username.toUpperCase(Locale.ENGLISH);
+    }
+}
+```
+
+The accessor keeps the same name as the record component:
+
+```java
+user.username();
+```
+
+
+### Record Patterns
+
+Java 21 introduced **Record Patterns**, which allow record components to be extracted directly during pattern matching.
+
+Example with `instanceof`:
+
+```java
+Object obj = new User("alice", "secret");
+
+if (obj instanceof User(String username, String password)) {
+    System.out.println("Username: " + username);
+    System.out.println("Password: " + password);
+}
+```
+
+Record patterns can also be used with `switch`:
+
+```java
+static void printUser(Object obj) {
+    switch (obj) {
+        case User(String username, String password) ->
+            System.out.println("User: " + username);
+
+        default ->
+            System.out.println("Not a User");
+    }
+}
+```
+
+Record patterns also support **nesting**, allowing nested records to be deconstructed.
+
+```java
+record Name(String first, String last) {}
+record User(Name name, String password) {}
+
+Object obj = new User(
+    new Name("Alice", "Smith"),
+    "secret"
+);
+
+if (obj instanceof User(
+        Name(String first, String last),
+        String password
+)) {
+    System.out.println("First name: " + first);
+    System.out.println("Last name: " + last);
+}
+```
+
+This is useful when working with deeply structured data.
+
+
+### Features and Limitations
+
+Records **cannot**:
+
+- Be `abstract`.
+- Extend a class.
+- Be extended by another class.
+- Declare additional instance fields outside the record components.
+
+The record components are immutable.
+
+Records **can**:
+
+- Be declared inside another class.
+- Implement interfaces.
+- Be generic.
+- Use annotations.
+- Have static fields, methods, and initializers.
+- Have constructors.
+- Have instance methods.
+
+Records are implicitly `final`.
+
+
+#### Key Takeaways
+
+- Records are designed for concise, immutable data objects.
+- They significantly reduce boilerplate code.
+- Record components are declared in the record header.
+- The compiler provides the constructor, accessors, `equals()`, `hashCode()`, and `toString()`.
+- Record accessors use the component name, such as `username()`.
+- Records can have custom constructors and accessors.
+- Java 21 introduced Record Patterns for convenient data extraction.
+- Records cannot extend classes or be extended by other classes.
+- Records can implement interfaces and contain static components and methods.
+
+
+### Static Initialization Block
+
+A **static initialization block** is a block of code preceded by `static`:
+
+```java
+static {
+    // code
+}
+```
+
+It is used to initialize **static fields and constants**.
+
+Unlike a constructor, which initializes instance fields, a static initialization block runs **once for the entire class**, not once for each object.
+
+Example:
+
+```java
+public class StaticInitBlockExample {
+
+    private static String stringField;
+    private static Date dateField;
+
+    private static final String A_STRING_CONSTANT;
+
+    static {
+        stringField = getEmptyString();
+        dateField = new Date();
+        A_STRING_CONSTANT = "unknown";
+    }
+
+    private static String getEmptyString() {
+        return "empty";
+    }
+}
+```
+
+A static block can also create objects and call static methods.
+
+
+### Order of Static Initialization
+
+Direct assignments to static fields happen **before** static initialization blocks.
+
+```java
+public class StaticInitOrderExample {
+
+    static int field = 30; // first
+
+    static {
+        field = 50; // second
+    }
+}
+```
+
+The final value of `field` is:
+
+```text
+50
+```
+
+The order is:
+
+1. Static field assignment.
+2. Static initialization block.
+
+A class can have multiple static blocks. They execute in the order they appear in the source code.
+
+```java
+static {
+    // First
+}
+
+static {
+    // Second
+}
+```
+
+Later initialization can overwrite values set by earlier initialization.
+
+A static block cannot directly access instance fields or instance methods because it has no object instance.
+
+
+### Instance Initialization Block
+
+An **instance initialization block** is a block of code enclosed in `{}` without `static`:
+
+```java
+{
+    // code
+}
+```
+
+It is used to initialize **instance fields** and runs every time an object is created.
+
+Example:
+
+```java
+class InstanceInitBlockExample {
+
+    private int field;
+
+    {
+        field = 40;
+    }
+}
+```
+
+For simple initialization, a direct field assignment is usually enough:
+
+```java
+private int field = 40;
+```
+
+However, an instance initialization block is useful when more complex initialization logic is required.
+
+
+### Example: Initializing an Array
+
+```java
+class ArrayInitExample {
+
+    private int[] array;
+
+    {
+        System.out.println("Before the constructor");
+
+        array = new int[10];
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i * i;
+        }
+    }
+
+    public void print() {
+        for (int num : array) {
+            System.out.printf("%d ", num);
+        }
+    }
+}
+```
+
+When an object is created:
+
+```java
+ArrayInitExample obj = new ArrayInitExample();
+obj.print();
+```
+
+The output is:
+
+```text
+Before the constructor
+0 1 4 9 16 25 36 49 64 81
+```
+
+The instance initialization block runs before the constructor's statements.
+
+
+### Initialization Order
+
+For an instance:
+
+- The superclass constructor runs first.
+- The instance initialization block runs before the constructor's other statements.
+- The initialization block runs every time an object is created.
+
+Multiple instance initialization blocks are allowed and execute in the order they appear in the class.
+
+```java
+{
+    // First
+}
+
+{
+    // Second
+}
+```
+
+
+### Static vs Instance Initialization Blocks
+
+| | Static Block | Instance Block |
+|---|---|---|
+| Syntax | `static { }` | `{ }` |
+| Initializes | Static fields/constants | Instance fields |
+| Execution | Once per class | Once per object |
+| Can directly access instance members | No | Yes |
+| Multiple blocks | Yes | Yes |
+| Execution order | Source order | Source order |
+
+
+#### Key Takeaways
+
+- `static { }` is a **static initialization block**.
+- It initializes static fields and constants and runs once for the class.
+- Static field assignments happen before static blocks.
+- `{ }` without `static` is an **instance initialization block**.
+- Instance blocks run each time an object is created.
+- Instance initialization blocks run before the constructor's statements, after superclass construction.
+- Multiple initialization blocks are executed in the order they appear.
 
 ---
